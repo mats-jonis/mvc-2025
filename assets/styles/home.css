@@ -1,0 +1,106 @@
+
+
+.me{
+    width: 80%;
+    margin: auto;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.me-col{
+    flex-basis: 48%;
+    padding: 30px 2px;
+}
+
+.me-col .gradient{
+    height: 75vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(4,9,30,0.7), transparent),url("../images/jag1.jpg");
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+}
+.me-col{
+    flex-basis: 48%;
+    padding: 30px 2px;
+    align-content: center;
+    justify-content: center;
+}
+.me-col img{
+    width: 100%;
+}
+.me-col h1{
+    padding-bottom: 25px;
+}
+.me-col p{
+    padding: 0px 0 25px;
+}
+
+
+.facts{
+    width: 100%;
+    margin: 0px;
+    text-align: center;
+    padding-top: 50px;
+}
+.facts-col{
+    flex-basis: 52%;
+    border-radius: 10px;
+    margin-bottom: 5%;
+}
+.facts-col img{
+    height: 75%;
+    width: 75%;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+
+.facts-col img:hover{
+    transition: 0.4s;
+    box-shadow: 5px 5px 10px rgb(117, 117, 117);
+}
+.facts-col p{
+    padding: 0;
+    margin: 0;
+}
+.facts-col h3{
+    margin-top: 16px;
+    margin-bottom: 15px;
+}
+
+@media(max-width: 700px){
+    .header{
+        height: 30vh; 
+    }
+    .row{
+        flex-direction: column;
+    }
+    .me-col img{
+        width: 100px;
+        height: 40vh;
+        margin: auto;
+    }
+    
+    .facts-col img{
+       
+        /* width: 25vh;
+        height: 25vh; */
+        display: block;
+        margin: auto;
+        width: 75%;
+    }
+    
+    .me-col .gradient{
+        height: 40vh;        
+    }
+    .facts-col p{
+        margin: 15px;
+    }
+    .facts-col p, .facts-col h3{
+        text-align: center;
+    }
+}
+
+

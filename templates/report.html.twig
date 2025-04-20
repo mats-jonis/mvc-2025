@@ -1,0 +1,63 @@
+{% extends "base.html.twig" %}
+
+{% block page_title %}Report{% endblock %}
+
+{% block title %}Report{% endblock %}
+
+{% block body %}
+            <section class="about-section">
+        <h3>Kursmoment</h3>    
+            <nav2>
+                <div class="nav-links2">
+                    <ul>
+                        <li><a href="#kmom01">KMOM01</a></li>
+                        <li><a href="#kmom02">KMOM02</a></li>
+                        <li><a href="#kmom03">KMOM03</a></li>
+                        <li><a href="#kmom04">KMOM04</a></li>
+                        <li><a href="#kmom05">KMOM05</a></li>
+                        <li><a href="#kmom06">KMOM06</a></li>
+                        <li><a href="#kmom10">KMOM10</a></li>                        
+                    </ul>
+                </div>
+            
+            </nav2>
+        
+            <div class="me-col">
+                <h2>Redovisningstext</h1><br>
+            <h2 id="kmom01">kmom01</h2>
+            <p>Min tidigare erfarenhet av objektorientering är både inom tidigare kurser i både Java och Python. Har lite erfarenhet av mobilutveckling inom Dart/Flutter där jag har använt OOP på några projekt. Så jag är inte helt okänd till konceptet och hur man kan använda det istället för till exempel funktionell programmering. Men objektorienterade begrepp och principer som inkapsling, arv, polymorfism och abstraktion är fortfarande något jag behöver och vill lära mig mer om.</p>
+
+            <p>För att förstå hur klasser och objekt fungerar I PHP så är det viktigt att först förstå de grundläggande begreppen. En klass är en mall för de objekt som skapas från den. En klass kan innehålla metoder(funktioner) och egenskaper(variabler). Metoderna är vad objekten kan utföra och egenskaperna är tillståndet(state) på objekten. Och egenskaperna är individuellt för varje enskilt objekt. Och man kallar att ett objekt instansierar en klass. För att skapa en klass i PHP så börjar man med att skriva syntaxen class och sen namnet på klassen. För att skapa egenskaperna så börjar man först ange åtkomstnivå. Vilket är public, private eller protected, därefter datatypen och sen dess namn. Åtkomstnivån public gör att egenskapen går att ändra även efter att objekten skapas. Metoderna skapas med att först ange åtkomstnivån sedan med syntaxen function och sen ange vad som ska returneras eller inte. För att skapa ett objekt av en klass så anger man objektnamn = klass(). Därefter använder man namnet på objektet för att komma åt dess egenskaper och metoder. Med detta har man en kort grund för att komma igång med att skapa sina första klasser i PHP.</p>
+
+            <p>Tack vare föreläsningarna så fick man en bra förståelse av hur kodbasen och strukturen fungerade. Det största problemet jag haft har varit att med stylesheet och att försöka implementera sass. Gjorde först klart sidan lokalt utan twig så att sidan fungerade och att den var responsiv. Därefter uppstod problem när jag försökte överföra den till servern och sen implementera den med twig och sass. Och inte helt fått till det så det är något jag kommer att arbeta vidare med i kommande kursmoment.</p>
+            
+            <p>I artikeln “PHP The Right Way” så tycker jag det handlade mycket om att både hur man installerar PHP på bästa sätt och vilken den bästa praxis för webbutveckling med PHP. Tar upp allting som är tillgängligt utan att gå in för djupt i varje del. Vilket gör att den är bra information för de som är blivande PHP utvecklare.</p>
+
+            <p>Den del jag bland annat noterade i artikeln var att PHP är ett “exception-light” programmeringsspråk. Till skillnad från till exempel Python som varnar för det mesta så kommer PHP att fortsätta utan om något exceptionellt problem uppstår. Så det är något jag kommer ha översikt framöver.</p>
+
+            <p>Min TIL för detta kursmoment är mest att hur kodstrukturen med twig fungerar tillsammans med symfony. Har inte riktigt fått till det att fungerar med sass på servern med det är något jag kommer att försöka åtgärda framöver. Ser fram emot att utforska mera att arbeta med objektorienterat med PHP och lära mig hur man kan implementera det på bästa sätt. </p>
+
+            <h2 id="kmom02">kmom02</h2>
+            <p>Här kommer redovisningstexten för detta kursmoment.</p>
+
+            <h2 id="kmom03">kmom03</h2>
+            <p>Här kommer redovisningstexten för detta kursmoment.</p>
+
+            <h2 id="kmom04">kmom04</h2>
+            <p>Här kommer redovisningstexten för detta kursmoment.</p>
+
+            <h2 id="kmom05">kmom05</h2>
+            <p>Här kommer redovisningstexten för detta kursmoment.</p>
+
+            <h2 id="kmom06">kmom06</h2>
+            <p>Här kommer redovisningstexten för detta kursmoment.</p>
+
+            <h2 id="kmom10">kmom10</h2>
+            <p>Här kommer redovisningstexten för detta kursmoment.</p>                
+            </div>
+            
+    </section>
+
+
+
+{% endblock %}

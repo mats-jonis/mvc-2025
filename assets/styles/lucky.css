@@ -1,0 +1,172 @@
+
+
+.hero{
+    padding: 10px 10%;
+    overflow: hidden;
+    position: relative;
+    
+}
+.login-btn {
+    text-decoration: none;
+    color: #333;
+    margin-right: 15px;
+    font-weight: 400;    
+}
+
+.btn2 {
+    display: inline-block;
+    text-decoration: none;
+    padding: 14px 40px;
+    color: #ffff;
+    background-image: linear-gradient(45deg, #df4881, #c430d7);
+    font-size: 14px;
+    border-radius: 30px;
+    /* border-top-right-radius: 0; */
+    transition: 0.5s;
+}
+
+.content{
+    margin-top: 10%;
+    max-width: 400px;
+}
+
+.content h1{
+    margin: 10px 0 30px;
+    color: #fff;
+    animation-delay: 0.25s;
+}
+
+.content p{
+    margin: 10px 0 30px;
+    color: black;
+    font-size: 16px;
+    animation-delay: 0.5s;
+}
+
+.content .btn {
+    padding: 15px 80px;
+    font-size: 16px;
+    animation-delay: 0.5s;
+}
+
+.btn2:hover {
+    border-radius: 15px;
+}
+.feature-img {
+    width: 275px;
+    height: 100%;
+    position: absolute;
+    top: 15px;
+    bottom: 0px;
+    right: 25%;
+    transition: 0.5s;  
+}
+
+.feature-img.anim {
+    animation-delay: 1s;
+}
+
+.anim {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: moveup 0.5s linear forwards;
+}
+
+.bground{
+    background-image: url("../images/arena6.jpg");
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transform: translateX(300px);
+    animation: moveup 1s linear forwards;
+    background-color: black;
+}
+
+@keyframes moveup{
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+
+.card{
+    margin: 0 auto;
+    padding: 2em;
+    /* width: 300px; */
+    background: transparent;
+    opacity: 0.8;
+    text-align: left;
+    border-radius: 10px;
+    position: relative;
+  }
+  
+  @property --angle{
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+  
+  .card::after, .card::before{
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    z-index: -1;
+    padding: 3px;
+    border-radius: 10px;
+    animation: 3s spin linear infinite;
+  }
+  .card::before{
+    filter: blur(1.5rem);
+    opacity: 0.5;
+  }
+  @keyframes spin{
+    from{
+      --angle: 0deg;
+    }
+    to{
+      --angle: 360deg;
+    }
+  }
+
+@media(max-width: 700px){
+    .feature-img {
+        width: 150px;
+        height: 75%;
+        position: absolute;
+        top: 50px;
+        bottom: 0px;
+        left: 155px;
+        transition: 0.5s;  
+    }
+    .content p{
+        color: blue;
+        font-size: 20px;
+        text-align: left;
+        animation-delay: 0.5s;
+        padding-right: 25px;
+        margin-left: 0;
+    }
+    .content{
+        margin: 0;
+        max-width: 200px;
+    }
+    .content .btn {
+        margin-top: 40px;
+        text-align: left;
+        padding: 15px 40px;
+        font-size: 12px;        
+    }
+    .content h1 {
+        text-align: left;
+    }
+    .hero{
+        padding: 0;
+    }
+}

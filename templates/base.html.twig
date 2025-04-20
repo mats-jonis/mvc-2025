@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.png') }}">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css">
+        {# <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> #}
+
+        <link rel="icon" href="{{ asset('img/glider.svg') }}">
+
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+        
+        <header class="header">
+        <nav>
+            <a href="index.html"><img src="{{ asset('img/logo1.png') }}"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                <li><a href="{{ path('home') }}">HOME</a></li>
+                <li><a href="{{ path('about') }}">ABOUT</a></li>
+                <li><a href="{{ path('lucky_number') }}">LUCKY</a></li>
+                <li><a href="{{ path('report') }}">REPORT</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <h1>{% block page_title %}{% endblock %}</h1>
+    </section>
+
+        {% block body %}{% endblock %}
+
+        <section class="footer">
+    <div class="icons">
+        <i class="fa-brands fa-github"></i>
+        <i class="fa-regular fa-envelope"></i>
+    </div>
+    <p>Gjord av<i class="fa-thin fa-plus"></i> mats-jonis</p>
+</section>
+
+
+<!-- ----Javascript for Toggle Menu---- -->
+    <script>
+        var navLinks = document.getElementById("navLinks");
+
+        function showMenu(){
+            navLinks.style.right = "0";
+        }
+        function hideMenu(){
+            navLinks.style.right = "-200px";
+        }
+    </script>
+
+    </body>
+</html>

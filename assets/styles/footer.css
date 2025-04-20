@@ -1,0 +1,24 @@
+/* ---- footer ---- */
+
+.footer{
+    width: 100%;
+    text-align: center;
+    padding: 30px 0;
+}
+
+.footer h4{
+    margin-bottom: 25px;
+    margin-top: 20px;
+    font-weight: 600;
+}
+.icons .fa-brands, .icons .fa-regular{
+    color:  #1c07ff;
+    margin: 0 13px;
+    cursor: pointer;
+    padding: 18px 0;
+    text-decoration: none;
+    size: 100%;
+}
+.fa-regular{
+    color:  #1c07ff;
+}

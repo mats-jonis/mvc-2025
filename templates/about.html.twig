@@ -1,0 +1,54 @@
+{% extends "base.html.twig" %}
+
+{% block page_title %}About{% endblock %}
+
+{% block title %}About{% endblock %}
+
+{% block body %}
+    
+    <section class="about-section">
+
+        <div class="row">
+            <div class="about-column-left">
+                <img src="{{ asset('img/mvc.png') }}">
+                <h2>DV1608 Objektorienterade webbteknologier</h2>
+                <p>Kursens fokus är objektorienterade programmeringstekniker i programmeringsspråket PHP. 
+                    Klassiska objektorienterade konstruktioner hanteras tillsammans med objektorienterad 
+                    programmering i webbaserat ramverk tillsammans med databaser samt enhetstestning.</p>
+                
+            </div>
+            <div class="about-column-right">
+                <h3>Github</h3>
+                <div>
+                    <span>Kursens</span>
+                    <div class="icons">
+                        <a href="https://github.com/dbwebb-se/mvc" class="fa-brands fa-github"></a>
+                    </div>
+                </div>
+                <div>
+                    <span>mats-jonis</span>
+                    <div class="icons">
+                        <a href="https://github.com/mats-jonis" class="fa-brands fa-github"></a>
+                    </div>
+                </div>
+                
+                
+            </div>
+        
+
+    </section>
+
+
+<!-- ----Javascript for Toggle Menu---- -->
+    <script>
+        var navLinks = document.getElementById("navLinks");
+
+        function showMenu(){
+            navLinks.style.right = "0";
+        }
+        function hideMenu(){
+            navLinks.style.right = "-200px";
+        }
+    </script>
+
+{% endblock %}

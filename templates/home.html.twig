@@ -1,0 +1,64 @@
+{% extends "base.html.twig" %}
+
+{% block page_title %}Home{% endblock %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+        <section class="me">
+
+            <div class="row">
+                <div class="me-col">
+                    <h1>Hej och välkommen</h1>
+                    <p>Jag heter Mats och läser programmet<br>Webbprogrammering 120 hp.</p>
+                    <p>Det här är min sida på kursen DV1608 Objektorienterade webbteknologier</p>
+                    <a href="{{ path('about') }}" class="btn" >OM KURSEN</a>
+                </div>
+                <div class="me-col">
+                    <div class="gradient">
+                        
+                    </div>
+                </div>
+            </div>
+</section>
+        <section class="facts">
+            <h3>Bakgrund och Fakta</h3>
+            <p>Här är lite backgrund och fakta om mig.</p>
+
+            <div class="row">
+                <div class="facts-col">
+                
+                    <img src="{{ asset('img/skog.jpg') }}">
+                    <h3>Uppväxt</h3>
+                    <p>Är uppvuxen i Norrland men bor nu i Stockholm.</p>
+                </div>
+                <div class="facts-col">
+                    <img src="{{ asset('img/it.jpg') }}">
+                    <h3>Bakgrund</h3>
+                    <p>Har jobbat inom IT-branchen i många år på olika positioner.</p>
+                </div>
+                <div class="facts-col">
+                    <img src="{{ asset('img/intressen.jpg') }}">
+                    <h3>Intressen</h3>
+                    <p>Förutom att programmera så gillar jag att idrotta framförallt med tennis och golf.</p>
+                </div>
+            </div>
+
+        </section>
+
+    
+
+<!-- ----Javascript for Toggle Menu---- -->
+    <script>
+        var navLinks = document.getElementById("navLinks");
+
+        function showMenu(){
+            navLinks.style.right = "0";
+        }
+        function hideMenu(){
+            navLinks.style.right = "-200px";
+        }
+    </script>
+
+
+{% endblock %}
