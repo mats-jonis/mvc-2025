@@ -1,5 +1,8 @@
 # mvc-2025
 
+![symfony-twig-template](https://github.com/user-attachments/assets/f16f1ac6-707c-4ad3-b732-61b3a318efb9)
+
+
 A web application using Twig for templating and Webpack for asset management. This project serves as a base structure for future development with a MVC architecture.
 
 Techstack:
