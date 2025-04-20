@@ -40,8 +40,12 @@ class LuckyControllerJson
              'There is no place like home'
             );
 
+        date_default_timezone_set('Europe/Stockholm');
+        $timeStamp = date("Y-m-d H:i:s",time());
+           
         $data = [
             'Quote of the day:' => $quotes[$number],
+            'Date:' => $timeStamp,
         ];
 
         // return new JsonResponse($data);
