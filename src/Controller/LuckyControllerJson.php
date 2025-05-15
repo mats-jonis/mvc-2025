@@ -25,10 +25,10 @@ class LuckyControllerJson
             $response->getEncodingOptions() | JSON_PRETTY_PRINT
         );
         return $response;
-        
+
     }
 
-   
+
     #[Route("/api/quote")]
     public function quotes(): Response
     {
@@ -41,8 +41,8 @@ class LuckyControllerJson
             );
 
         date_default_timezone_set('Europe/Stockholm');
-        $timeStamp = date("Y-m-d H:i:s",time());
-           
+        $timeStamp = date("Y-m-d H:i:s", time());
+
         $data = [
             'Quote of the day:' => $quotes[$number],
             'Date:' => $timeStamp,
@@ -55,13 +55,13 @@ class LuckyControllerJson
             $response->getEncodingOptions() | JSON_PRETTY_PRINT
         );
         return $response;
-        
+
     }
 
     #[Route("/api/")]
     public function allRoutes(): Response
     {
-        
+
         $routes = array(
             '/lucky/number',
             '/lucky/hi',
@@ -77,7 +77,7 @@ class LuckyControllerJson
 
         $allRoutes = '';
         foreach ($routes as $route) {
-        $allRoutes .= $route . "\n";
+            $allRoutes .= $route . "\n";
         }
 
         $data = [
@@ -90,8 +90,6 @@ class LuckyControllerJson
             $response->getEncodingOptions() | JSON_PRETTY_PRINT
         );
         return $response;
-        
+
     }
 }
-
-

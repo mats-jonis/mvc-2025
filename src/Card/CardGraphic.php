@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Card;
 
 class CardGraphic extends Card
@@ -58,7 +59,7 @@ class CardGraphic extends Card
         'img/CLUB-13-KING.svg',
     ];
 
-   
+
     public function __construct()
     {
         parent::__construct();

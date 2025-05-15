@@ -5,12 +5,12 @@ namespace App\Card;
 class Deck
 {
     private $deck = [];
-    
+
     public function add(Card $card): void
     {
         $this->deck[] = $card;
     }
-    
+
     public function shuffle(): void
     {
         foreach ($this->deck as $card) {
@@ -49,7 +49,7 @@ class Deck
         return $values;
     }
 
-    public function draw() : ?card
+    public function draw(): ?card
     {
         return array_pop($this->deck);
     }
