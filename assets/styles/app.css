@@ -724,7 +724,7 @@ h2.anim{
     width: calc(100% / 14);
     box-sizing: border-box;
     border: 1px solid #e6e5e5;
-    border-radius: 5px;
+    border-radius: 4px;
     margin: 0px;
 }
 
@@ -733,7 +733,7 @@ h2.anim{
     height: auto;
     box-sizing: border-box;
     border: 1px solid #e6e5e5;
-    border-radius: 5px;
+    border-radius: 4px;
     margin: 0px;
 }
 
