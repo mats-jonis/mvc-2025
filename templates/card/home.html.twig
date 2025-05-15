@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Card Game{% endblock %}
+
+{% block main %}
+<h1>Card game</h1>
+
+
+<div class="landingpage">
+{{ include('flash.html.twig') }}
+    <p>This is a classical deck of cards. You can read more on 
+    the <a href="https://sv.wikipedia.org/wiki/Kortlek"> 
+    basics of the game on Wikipedia</a>.</p>
+    
+    <p><a href="{{ path('card_deck') }}">/game/card/deck</a> => Deck of cards sorted in color and rank. </p>
+
+    <p><a href="{{ path('shuffle_deck') }}">/game/card/deck</a> => Shuffled deck of cards.</p>
+
+    <p><a href="{{ path('draw_card') }}">/game/card/draw</a> => Draws a card from the deck.</p>
+
+    <p><a href="{{ path('draw_num_cards', { 'num': 5}) }}">/game/card/draw/:number</a> => Draws one or serveral card from the deck (default 5 cards).</p>
+    
+
+    <p><a href="{{ path('session_delete') }}">/session/delete</a> => Delete a session.</p>
+   
+
+    <h1>Card game code structure</h2>
+    <p>This card game consits of three classes: Card, CardGraphic, Deck and CardGameController.
+</p>
+    <h2>Card class</h2>
+    <p>Represent a single playing card and is the base class for CardGraphic.</p>
+    <h2>CardGraphic</h2>
+    <p>It's the visual representation of a card and inherits from Card.
+Contains imagePath for each Card.
+</p>
+    <h2>Deck</h2>
+    <p>Is the class the manages a collection of Card objects. 
+    Contains an array of Cards and is a composition to Card.</p>
+    <h2>CardGameController</h2>
+    <p>Holds the  application logic of the game and coordinates between the deck of cards and the UI.</p>
+
+    <img src="{{ asset('img/uml_cardgame.png') }}">
+
+ </div>
+    
+{% endblock %}

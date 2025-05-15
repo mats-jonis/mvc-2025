@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Card Game{% endblock %}
+
+{% block main %}
+<h1>Card game</h1>
+
+<div class="card-container">
+<div class="card1">
+
+{% for value in cardValues %}
+    <img src="{{ asset(value) }}" alt="">
+{% endfor %}
+</div>
+</div>
+
+{{ include('flash.html.twig') }}
+
+
+{% endblock %}

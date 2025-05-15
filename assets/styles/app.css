@@ -35,13 +35,18 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+.main {
+    margin-top: 2rem;
+}
+
 h1{
     font-size: 36px;
     font-weight: 600;
+    color: black;
 }
 p{
     color: #777;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 300;
     line-height: 22px;
     padding: 10px;
@@ -90,7 +95,7 @@ body{
 
 nav{
     display: flex;
-    padding: 2% 6%;
+    padding: 2% 2%;
     justify-content: space-between;
     align-items: center;
 }
@@ -211,7 +216,7 @@ nav .fa{
 /* --- header --- */
 
 .header{
-    height: 15rem;
+    height: 8rem;
     width: 100%;
     background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),url("../images/background1.jpg");
     background-position: center;
@@ -525,7 +530,7 @@ h2.anim{
 }
 
 
-.card{
+.card3{
     margin-top: 35px;
     /* padding: 2em; */
     /* width: 300px; */
@@ -542,7 +547,7 @@ h2.anim{
     inherits: false;
   }
   
-  .card::after, .card::before{
+  .card3::after, .card3::before{
     content: '';
     position: absolute;
     height: 100%;
@@ -556,7 +561,7 @@ h2.anim{
     border-radius: 10px;
     animation: 3s spin linear infinite;
   }
-  .card::before{
+  .card3::before{
     filter: blur(1.5rem);
     opacity: 0.5;
   }
@@ -685,3 +690,71 @@ h2.anim{
         height: 10px;
 }
 }
+
+.flash-notice {
+    padding: 0.5em;
+    color: #004085;
+    background-color: #cce5ff;
+    border-color: #b8daff;
+}
+.flash-notice:before {
+    content: "ⓘ";
+}
+
+.flash-warning {
+    padding: 0.5em;
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+.flash-warning:before {
+    content: "⚠";
+}
+
+.card-container{
+    display: flex;
+    flex-wrap: wrap;
+   margin-top: 4rem;
+   margin-left: 1rem;
+   text-align: left;
+
+}
+
+.card1 img{
+    width: calc(100% / 14);
+    box-sizing: border-box;
+    border: 1px solid #e6e5e5;
+    border-radius: 5px;
+    margin: 0px;
+}
+
+.card2 img{
+    max-width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    border: 1px solid #e6e5e5;
+    border-radius: 5px;
+    margin: 0px;
+}
+
+.landingpage{
+    display: inline-block;
+    text-align: left;
+    margin-top: 4rem;
+    
+}
+
+.landingpage a{
+    text-decoration: solid;
+    color: #1c07ff;
+}
+
+.landingpage h1, h2{
+    text-decoration: solid;
+    color: black;
+}
+
+.landingpage img{
+    margin-top: 2rem;
+}
+

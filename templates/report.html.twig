@@ -4,7 +4,7 @@
 
 {% block title %}Report{% endblock %}
 
-{% block body %}
+{% block main %}
             <section class="about-section">
         <h3>Kursmoment</h3>    
             <nav2>
@@ -38,8 +38,19 @@
             <p>Min TIL för detta kursmoment är mest att hur kodstrukturen med twig fungerar tillsammans med symfony. Har inte riktigt fått till det att fungerar med sass på servern med det är något jag kommer att försöka åtgärda framöver. Ser fram emot att utforska mera att arbeta med objektorienterat med PHP och lära mig hur man kan implementera det på bästa sätt. </p>
 
             <h2 id="kmom02">kmom02</h2>
-            <p>Här kommer redovisningstexten för detta kursmoment.</p>
-
+            <p>Vill först börja denna rapport med att förklara kort vad de objektorienterade konstruktionerna arv, komposition, interface och trait innebär.
+</p>
+            <p>När man pratar om arv menas när en klass ärver från en annan klass. När det finns relationen är-en som implementeras som arv. En subklass ärver från basklassen och kan skriva över skriva över basklassen metoder. Exempel på arv är till exempel en subklass Cat ärver från basklassen Animal.
+</p>
+            <p>En komposition är en klass som innehåller andra objekt.Det finns relationen har-en (has-a) som implementeras som en medlemsvariabel vilket också kallas komposition.</p>
+            <p>Interface är en lista med metoder som måste implementeras av en klass. För att sätta gemensamma regler för olika klasser.</p>
+            <p>Trait är ett sätt för att dela kod mellan klasser utan arv. Som kan användas när man behöver återanvända metoder i olika klasser som kan ge dessa utökad funktionalitet.
+</p>
+            <p>Min implementation av kursmomentets uppgift består av en controller klass och tre Card klasser.De tre Card klasser består av Card som representerar ett kort i en kortlek. CardGraphic som ärver av Card om och innehåller länkar till bilder för varje index. Klassen Deck innehåller en array av kort och olika metoder för att lägga till, blanda och dra kort ur kortleken. Controller klassen, CardGameController, innehåller de routes och logiken för att kunna spela kortspelet.</p>
+            <p>Jag tyckte att till slut löste uppgiften rätt bra. Allt fungerar som det ska och har lagt till exceptions ifall det är slut kort. En kontroll ifall man direkt försöker dra kort ut kortleken utan att ha blandat den först. Förbättringsområden är mera till exempel vad som händer om man försöker lägga till tomma kort till kortleken. Löste det i Controller klassen men bör gå att göra det i Card och Deck klassen istället. Känns också som jag bättre kan återanvända koden och göra mindre upprepningar.</p>
+            <p>Mina intryck med att arbeta med Symfony och MVC är att man kan få en bra struktur och uppdelning av ansvaret i koden. Så att man lär sig best practices vilket kan ge en underhållbar och skalbar kod vilket är framförallt användbart i större projekt.</p>
+            <p>Min TIL för detta kursmoment är mest inblicken hur det är att arbeta med MVC. Att använda Controller för routes och logik och View delen med Twig utan att blanda in logik. Så det blir tydligt vilken del som gör vad i koden. Vilket gör det lättare att förstår och vid felsökning.</p>
+            
             <h2 id="kmom03">kmom03</h2>
             <p>Här kommer redovisningstexten för detta kursmoment.</p>
 

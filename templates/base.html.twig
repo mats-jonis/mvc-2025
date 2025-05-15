@@ -33,6 +33,7 @@
                 <li><a href="{{ path('about') }}">ABOUT</a></li>
                 <li><a href="{{ path('lucky_number') }}">LUCKY</a></li>
                 <li><a href="{{ path('report') }}">REPORT</a></li>
+                <li><a href="{{ path('card_start') }}">CARD</a></li>
                 </ul>
             </div>
             <i class="fa fa-bars" onclick="showMenu()"></i>
@@ -40,7 +41,7 @@
         <h1>{% block page_title %}{% endblock %}</h1>
     </section>
 
-        {% block body %}{% endblock %}
+        {% block main %}{% endblock %}
 
         <section class="footer">
     <div class="icons">
