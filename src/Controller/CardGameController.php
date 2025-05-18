@@ -124,7 +124,7 @@ class CardGameController extends AbstractController
 
         $deck = $session->get("deck");
         $drawnCards = new Deck();
-        $numCards = $deck->getNumberCards() ?? 0;
+        
 
         if (!$session->has("deck")) {
             $this->addFlash(
@@ -154,6 +154,8 @@ class CardGameController extends AbstractController
             $session->set("deck", $deck);
 
         }
+
+        $numCards = $deck->getNumberCards();
 
         $data = [
             "cardValues" => $deck->getString(),
