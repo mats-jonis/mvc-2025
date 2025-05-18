@@ -76,6 +76,7 @@ class CardGameController extends AbstractController
     ): Response {
         $deck = $session->get("deck");
         $drawnCards = new Deck();
+        
 
         if (!$session->has("deck")) {
             $this->addFlash(
@@ -124,7 +125,7 @@ class CardGameController extends AbstractController
 
         $deck = $session->get("deck");
         $drawnCards = new Deck();
-        
+                
 
         if (!$session->has("deck")) {
             $this->addFlash(
@@ -133,7 +134,9 @@ class CardGameController extends AbstractController
             );
 
             $deck = new Deck();
+            $numCards = 0;
         } else {
+            $numCards = $deck->getNumberCards();
 
             for ($i = 1; $i <= $num; $i++) {
                 if ($numCards > 0) {
@@ -155,7 +158,7 @@ class CardGameController extends AbstractController
 
         }
 
-        $numCards = $deck->getNumberCards();
+        //$numCards = $deck->getNumberCards();
 
         $data = [
             "cardValues" => $deck->getString(),
