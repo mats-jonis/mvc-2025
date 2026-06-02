@@ -4,11 +4,11 @@ namespace App\Card;
 
 class Card
 {
-    protected $value;
+    protected int $value = 0;
 
     public function __construct()
     {
-        $this->value = null;
+        $this->value = 0;
     }
 
     public function shuffle(): int
@@ -17,9 +17,9 @@ class Card
         return $this->value;
     }
 
-    public function setValue($arg_1): int
+    public function setValue(int $value): int
     {
-        $this->value = $arg_1;
+        $this->value = $value;
         return $this->value;
     }
 

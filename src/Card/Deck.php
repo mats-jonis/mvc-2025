@@ -4,7 +4,8 @@ namespace App\Card;
 
 class Deck
 {
-    private $deck = [];
+    /** @var Card[] */
+    private array $deck = [];
 
     public function add(Card $card): void
     {
@@ -13,9 +14,7 @@ class Deck
 
     public function shuffle(): void
     {
-        foreach ($this->deck as $card) {
-            $card->shuffle($this->deck);
-        }
+        shuffle($this->deck);
     }
 
     public function getNumberCards(): int
@@ -23,6 +22,7 @@ class Deck
         return count($this->deck);
     }
 
+    /** @return int[] */
     public function getValues(): array
     {
         $values = [];
@@ -32,6 +32,7 @@ class Deck
         return $values;
     }
 
+    /** @param int[] $values */
     public function setValues(array $values): void
     {
         foreach ($values as $index => $value) {
@@ -39,7 +40,7 @@ class Deck
         }
     }
 
-
+    /** @return string[] */
     public function getString(): array
     {
         $values = [];
@@ -49,7 +50,7 @@ class Deck
         return $values;
     }
 
-    public function draw(): ?card
+    public function draw(): ?Card
     {
         return array_pop($this->deck);
     }

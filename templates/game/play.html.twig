@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+{% block title %}Game 21{% endblock %}
+{% block main %}
+<h1>Game 21</h1>
+{{ include('flash.html.twig') }}
+
+<p>Cards left in deck: {{ cardsLeft }}</p>
+
+<h2>Bank: {{ bankValue }}</h2>
+<div class="card-container"><div class="card1">
+{% for card in bankHand %}
+    <img src="{{ asset(card) }}" alt="Banks card">
+{% endfor %}
+</div></div>
+
+<h2>Player: {{ playerValue }}</h2>
+<div class="card-container"><div class="card1">
+{% for card in playerHand %}
+    <img src="{{ asset(card) }}" alt="Players card">
+{% endfor %}
+</div></div>
+
+{% if status == 'playing' %}
+    <div class="game-controls">
+        <form method="post" action="{{ path('game_draw') }}"><button>Draw card</button></form>
+        <form method="post" action="{{ path('game_stand') }}"><button>Stand</button></form>
+    </div>
+{% else %}
+    <p class="result">
+        {% if status == 'player_bust' %}You went over 21, bank wins!
+        {% elseif status == 'bank_win' %}Bank wins!
+        {% elseif status == 'player_win' %}You win!
+        {% endif %}
+    </p>
+    <form method="post" action="{{ path('game_init') }}"><button>New game</button></form>
+{% endif %}
+
+<p><a href="{{ path('game_landing') }}">Back to start</a></p>
+{% endblock %}

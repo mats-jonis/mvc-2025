@@ -74,113 +74,65 @@ class CardGameController extends AbstractController
     public function drawCard(
         SessionInterface $session
     ): Response {
-        $deck = $session->get("deck");
         $drawnCards = new Deck();
-        
+        $deck = $session->get("deck");
 
-        if (!$session->has("deck")) {
-            $this->addFlash(
-                'warning',
-                'You have no cards the draw! Shuffle deck to start playing',
-            );
-
+        if (!$deck instanceof Deck) {
+            $this->addFlash('warning', 'You have no cards to draw! Shuffle deck to start playing');
             $deck = new Deck();
-        } else {
+            return $this->render('card/draw.html.twig', [
+                "cardValues" => $deck->getString(),
+                "drawnCards" => $drawnCards->getString(),
+                "numCards" => 0,
+            ]);
+        }
 
-            // draws a card and remove the last card from the deck.
+        $card = $deck->draw();
+        if ($card === null) {
+            $this->addFlash('warning', 'You have no cards to draw! Shuffle deck to start playing');
+        }
+        if ($card !== null) {
+            $drawnCards->add($card);
+        }
+        $session->set("deck", $deck);
+
+        return $this->render('card/draw.html.twig', [
+            "cardValues" => $deck->getString(),
+            "drawnCards" => $drawnCards->getString(),
+            "numCards" => $deck->getNumberCards(),
+        ]);
+    }
+
+    public function drawCards(int $num, SessionInterface $session): Response
+    {
+        $drawnCards = new Deck();
+        $deck = $session->get("deck");
+
+        if (!$deck instanceof Deck) {
+            $this->addFlash('warning', 'You have no cards to draw! Shuffle deck to start playing');
+            $deck = new Deck();
+            return $this->render('card/draw.html.twig', [
+                "cardValues" => $deck->getString(),
+                "drawnCards" => $drawnCards->getString(),
+                "numCards" => 0,
+            ]);
+        }
+
+        for ($i = 1; $i <= $num; $i++) {
             $card = $deck->draw();
-
-            if ($card != null) {
-                $drawnCards->add($card);
-            } else {
-                $this->addFlash(
-                    'warning',
-                    'You have no cards the draw! Shuffle deck to start playing',
-                );
+            if ($card === null) {
+                $this->addFlash('warning', 'You have no cards to draw! Shuffle deck to start playing');
+                break;
             }
-
-            $session->set("deck", $deck);
-
+            $drawnCards->add($card);
         }
+        $session->set("deck", $deck);
 
-        $numCards = $deck->getNumberCards();
-
-        $data = [
+        return $this->render('card/draw.html.twig', [
             "cardValues" => $deck->getString(),
             "drawnCards" => $drawnCards->getString(),
-            "numCards" => $numCards,
-        ];
+            "numCards" => $deck->getNumberCards(),
+        ]);
 
-
-        return $this->render('card/draw.html.twig', $data);
-    }
-
-
-
-    #[Route("/game/card/draw/{num<\d+>}", name: "draw_num_cards", methods: ['GET', 'POST'])]
-    public function drawCards(
-        int $num,
-        SessionInterface $session
-    ): Response {
-
-        $deck = $session->get("deck");
-        $drawnCards = new Deck();
-                
-
-        if (!$session->has("deck")) {
-            $this->addFlash(
-                'warning',
-                'You have no cards the draw! Shuffle deck to start playing',
-            );
-
-            $deck = new Deck();
-            $numCards = 0;
-        } else {
-            $numCards = $deck->getNumberCards();
-
-            for ($i = 1; $i <= $num; $i++) {
-                if ($numCards > 0) {
-                    $card = $deck->draw();
-                    if ($card !== null) {
-                        $drawnCards->add($card);
-                        $numCards--;
-                    }
-                } else {
-                    $this->addFlash(
-                        'warning',
-                        'You have no cards the draw! Shuffle deck to start playing',
-                    );
-                    break;
-                }
-            }
-
-            $session->set("deck", $deck);
-
-        }
-
-        //$numCards = $deck->getNumberCards();
-
-        $data = [
-            "cardValues" => $deck->getString(),
-            "drawnCards" => $drawnCards->getString(),
-            "numCards" => $numCards,
-        ];
-
-        return $this->render('card/draw.html.twig', $data);
-    }
-
-    #[Route("/game/card/play", name: "card_play", methods: ['GET'])]
-    public function play(
-        SessionInterface $session
-    ): Response {
-        $numcards = $session->get("num_cards");
-        $deck = $session->get("deck");
-
-        $data = [
-            "cardValues" => $deck->getString(),
-            "numCards" => $numcards
-        ];
-
-        return $this->render('card/play.html.twig', $data);
     }
 }

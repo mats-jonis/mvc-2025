@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Card\Card;
 use App\Card\CardGraphic;
 use App\Card\Deck;
+use App\Game\Game21;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,18 +26,13 @@ class DeckControllerJson
             'api/deck' => 'Deck of cards, sorted in color and order',
             'api/deck/shuffle' => 'Shuffled deck of cards',
             'api/deck/draw' => 'Draws a card from the deck',
-            'api/deck/draw/{num<\d+>}' => 'Draws one or serveral cards from the deck'
+            'api/deck/draw/{num<\d+>}' => 'Draws one or serveral cards from the deck',
+            'api/game' => 'Shows the current state of the 21 game in JSON',
             ];
-
-        $allRoutes = '';
-        foreach ($routes as $route) {
-            $allRoutes .= $route . "\n";
-        }
 
         $data = [
             'All JSON routes on the site:' => $routes,
         ];
-        // return new JsonResponse($data);
 
         $response = new JsonResponse($data);
         $response->setEncodingOptions(
@@ -56,16 +52,9 @@ class DeckControllerJson
             $deck->add($card);
         }
 
-        $allRoutes = '';
-        foreach ($deck as $route) {
-            $allRoutes .= $route . "\n";
-        }
-
         $data = [
             'All cards in the deck:' => $deck->getString(),
         ];
-
-        // return new JsonResponse($data);
 
         $response = new JsonResponse($data);
         $response->setEncodingOptions(
@@ -90,16 +79,9 @@ class DeckControllerJson
 
         $session->set("deck", $deck);
 
-        $allRoutes = '';
-        foreach ($deck as $route) {
-            $allRoutes .= $route . "\n";
-        }
-
         $data = [
-            'All shuffled cards in the deck:' => $deck->getString(),
+        'All shuffled cards in the deck:' => $deck->getString(),
         ];
-
-        // return new JsonResponse($data);
 
         $response = new JsonResponse($data);
         $response->setEncodingOptions(
@@ -113,48 +95,29 @@ class DeckControllerJson
     public function drawCard(
         SessionInterface $session
     ): Response {
-        $deck = $session->get("deck");
         $drawnCards = new Deck();
-        $message = '';
+        $sessionDeck = $session->get("deck");
+        $deck = $sessionDeck instanceof Deck ? $sessionDeck : new Deck();
+        $message = 'You have no cards to draw! Shuffle deck to start playing';
 
-        if (!$session->has("deck")) {
-
-            $message = 'You have no cards the draw! Shuffle deck to start playing';
-            $deck = new Deck();
-        } else {
-
-            // draws a card and remove the last card from the deck.
+        if ($sessionDeck instanceof Deck) {
             $card = $deck->draw();
-
-            if ($card != null) {
+            $message = $card === null ? 'You have no cards to draw! Shuffle deck to start playing' : '';
+            if ($card !== null) {
                 $drawnCards->add($card);
-            } else {
-                $message = 'You have no cards the draw! Shuffle deck to start playing';
             }
-
             $session->set("deck", $deck);
-
         }
-
-        $numCards = $deck->getNumberCards();
-
         $data = [
             "message" => $message,
             "drawnCards" => $drawnCards->getString(),
-            "numCards" => $numCards,
+            "numCards" => $deck->getNumberCards(),
             "cardValues" => $deck->getString(),
         ];
 
-
-
-        // return new JsonResponse($data);
-
         $response = new JsonResponse($data);
-        $response->setEncodingOptions(
-            $response->getEncodingOptions() | JSON_PRETTY_PRINT
-        );
+        $response->setEncodingOptions($response->getEncodingOptions() | JSON_PRETTY_PRINT);
         return $response;
-
     }
 
     #[Route("api/deck/draw/{num<\d+>}", methods: ['POST', 'GET'])]
@@ -163,51 +126,57 @@ class DeckControllerJson
         SessionInterface $session
     ): Response {
 
-        $deck = $session->get("deck");
         $drawnCards = new Deck();
-        $numCards = $deck->getNumberCards() ?? 0;
-        $message = '';
+        $sessionDeck = $session->get("deck");
+        $deck = $sessionDeck instanceof Deck ? $sessionDeck : new Deck();
+        $message = 'You have no cards to draw! Shuffle deck to start playing';
 
-        if (!$session->has("card_deck")) {
-            $message = 'You have no cards the draw! Shuffle deck to start playing';
-
-            $deck = new Deck();
-        } else {
-
+        if ($sessionDeck instanceof Deck) {
+            $message = '';
             for ($i = 1; $i <= $num; $i++) {
-                if ($numCards > 0) {
-                    $card = $deck->draw();
-                    if ($card !== null) {
-                        $drawnCards->add($card);
-                        $numCards--;
-                    }
-                } else {
-                    $message = 'You have no cards the draw! Shuffle deck to start playing';
+                $card = $deck->draw();
+                if ($card === null) {
+                    $message = 'You have no cards to draw! Shuffle deck to start playing';
                     break;
                 }
+                $drawnCards->add($card);
             }
-
             $session->set("deck", $deck);
-
         }
 
         $data = [
             "message" => $message,
             "drawnCards" => $drawnCards->getString(),
-            "numCards" => $numCards,
+            "numCards" => $deck->getNumberCards(),
             "cardValues" => $deck->getString(),
         ];
 
+        $response = new JsonResponse($data);
+        $response->setEncodingOptions($response->getEncodingOptions() | JSON_PRETTY_PRINT);
+        return $response;
+    }
 
+    #[Route("/api/game", name: "api_game", methods: ['GET'])]
+    public function apiGame(SessionInterface $session): Response
+    {
 
-        // return new JsonResponse($data);
+        $game = $session->get("game21");
+
+        $data = ['message' => 'No active game. Start one at /game.'];
+        if ($game instanceof Game21) {
+            $data = [
+                   'playerHand'  => $game->getPlayerHandStrings(),
+                   'playerValue' => $game->getPlayerValue(),
+                   'bankHand'    => $game->getBankHandStrings(),
+                   'bankValue'   => $game->getBankValue(),
+                   'cardsLeft'   => $game->getCardsLeft(),
+                   'status'      => $game->getStatus(),
+               ];
+        }
 
         $response = new JsonResponse($data);
-        $response->setEncodingOptions(
-            $response->getEncodingOptions() | JSON_PRETTY_PRINT
-        );
+        $response->setEncodingOptions($response->getEncodingOptions() | JSON_PRETTY_PRINT);
         return $response;
-
     }
 
 }

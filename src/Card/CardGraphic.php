@@ -4,7 +4,8 @@ namespace App\Card;
 
 class CardGraphic extends Card
 {
-    private $representation = [
+    /** @var string[] */
+    private array $representation = [
         'img/SPADE-1.svg',
         'img/SPADE-2.svg',
         'img/SPADE-3.svg',

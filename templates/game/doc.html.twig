@@ -1,0 +1,64 @@
+{% extends "base.html.twig" %}
+{% block title %}21 — Documentation{% endblock %}
+{% block main %}
+<h1>Game 21, Documentation</h1>
+
+<div class="doc-page">
+
+  <section class="doc-section">
+    <h2>Flow chart</h2>
+    <img src="{{ asset('images/flowchart_21.png') }}" alt="Flow chart for game 21" class="doc-img">
+  </section>
+
+<section class="doc-section">
+    <h2>Pseudo code</h2>
+    <pre class="doc-code">PLAYER DRAWS A CARD
+    if status is not "playing": stop
+    card = deck.draw()
+    add card to playerHand
+    if handValue(playerHand) is over 21:
+        status = "player_bust"        // bank wins
+
+PLAYER STANDS
+    if status is not "playing": stop
+    while handValue(bankHand) is below 17:
+        card = deck.draw()
+        add card to bankHand
+    decideWinner()
+
+DECIDE WINNER
+    if bank value is over 21:               status = "player_win"
+    else if bank value is at least player:  status = "bank_win"   // ties to bank
+    else:                                   status = "player_win"
+
+HAND VALUE (hand)
+    sum = 0, aces = 0
+    for each card:
+        v = value (ace = 1, J/Q/K = 10, else rank)
+        sum = sum + v
+        if v == 1: aces = aces + 1
+    for each ace:
+        if sum + 13 is 21 or less:
+            sum = sum + 13            // count ace as 14
+    return sum</pre>
+  </section>
+
+<section class="doc-section">
+    <h2>Classes</h2>
+    <dl class="doc-classes">
+      <dt>Card</dt>
+      <dd>Represents a single playing card with a value 1–52.</dd>
+      <dt>CardGraphic</dt>
+      <dd>Extends Card and supplies the visual representation (SVG image path) for each card.</dd>
+      <dt>Deck</dt>
+      <dd>Manages a collection of cards: add, shuffle, draw and count remaining.</dd>
+      <dt>Game21</dt>
+      <dd>Holds all game logic for 21. The deck, both hands, hand-value calculation and win determination.</dd>
+      <dt>Game21Controller</dt>
+      <dd>Thin controller that creates a game, handles player actions and renders views; all rules live in Game21.</dd>
+    </dl>
+  </section>
+
+  <a class="doc-link" href="{{ path('game_landing') }}">← Back to start</a>
+</div>
+{% endblock %}

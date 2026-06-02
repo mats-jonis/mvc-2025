@@ -48,8 +48,6 @@ class LuckyControllerJson
             'Date:' => $timeStamp,
         ];
 
-        // return new JsonResponse($data);
-
         $response = new JsonResponse($data);
         $response->setEncodingOptions(
             $response->getEncodingOptions() | JSON_PRETTY_PRINT
@@ -64,7 +62,7 @@ class LuckyControllerJson
 
         $routes = array(
             '/lucky/number',
-            '/lucky/hi',
+            '/lucky/greet',
             '/api/lucky/number',
             '/api/quote',
             '/api/',
@@ -75,15 +73,9 @@ class LuckyControllerJson
             '/report'
             );
 
-        $allRoutes = '';
-        foreach ($routes as $route) {
-            $allRoutes .= $route . "\n";
-        }
-
         $data = [
             'All routes on the site:' => $routes,
         ];
-        // return new JsonResponse($data);
 
         $response = new JsonResponse($data);
         $response->setEncodingOptions(
