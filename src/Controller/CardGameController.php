@@ -103,6 +103,7 @@ class CardGameController extends AbstractController
         ]);
     }
 
+    #[Route("/game/card/draw/{num<\d+>}", name: "draw_num_cards", methods: ['GET', 'POST'])]
     public function drawCards(int $num, SessionInterface $session): Response
     {
         $drawnCards = new Deck();
@@ -134,5 +135,19 @@ class CardGameController extends AbstractController
             "numCards" => $deck->getNumberCards(),
         ]);
 
+    }
+
+    #[Route("/game/card/play", name: "card_play", methods: ['GET'])]
+    public function play(SessionInterface $session): Response
+    {
+        $deck = $session->get("deck");
+        if (!$deck instanceof Deck) {
+            return $this->redirectToRoute('card_start');
+        }
+
+        return $this->render('card/play.html.twig', [
+            "cardValues" => $deck->getString(),
+            "numCards" => $deck->getNumberCards(),
+        ]);
     }
 }
