@@ -80,6 +80,8 @@
   "scripts": {
     "csfix": "tools/php-cs-fixer/vendor/bin/php-cs-fixer --config=tools/php-cs-fixer/.php-cs-fixer.dist.php fix src tests",
     "csfix:dry": "tools/php-cs-fixer/vendor/bin/php-cs-fixer --config=tools/php-cs-fixer/.php-cs-fixer.dist.php fix src tests --dry-run -v",
+    "phpunit": "XDEBUG_MODE=coverage vendor/bin/phpunit",
+    "phpdoc": "phpdoc --directory src --target docs/api",
     "auto-scripts": {
       "cache:clear": "symfony-cmd",
       "assets:install %PUBLIC_DIR%": "symfony-cmd",
@@ -108,7 +110,7 @@
     }
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.6.23",
+    "phpunit/phpunit": "^9.6",
     "symfony/browser-kit": "7.2.*",
     "symfony/css-selector": "7.2.*",
     "symfony/debug-bundle": "7.2.*",
