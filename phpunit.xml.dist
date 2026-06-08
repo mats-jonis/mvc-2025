@@ -27,6 +27,10 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+            <exclude>
+            <directory suffix=".php">src/Controller</directory>
+            <file>src/Kernel.php</file>
+        </exclude>
         <report>
             <html outputDirectory="docs/coverage"/>
         </report>
