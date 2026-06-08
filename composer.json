@@ -81,7 +81,7 @@
     "csfix": "tools/php-cs-fixer/vendor/bin/php-cs-fixer --config=tools/php-cs-fixer/.php-cs-fixer.dist.php fix src tests",
     "csfix:dry": "tools/php-cs-fixer/vendor/bin/php-cs-fixer --config=tools/php-cs-fixer/.php-cs-fixer.dist.php fix src tests --dry-run -v",
     "phpunit": "XDEBUG_MODE=coverage vendor/bin/phpunit",
-    "phpdoc": "phpdoc --directory src --target docs/api",
+    "phpdoc": "tools/phpdoc/phpdoc --config=tools/phpdoc/phpdoc.xml",
     "auto-scripts": {
       "cache:clear": "symfony-cmd",
       "assets:install %PUBLIC_DIR%": "symfony-cmd",
