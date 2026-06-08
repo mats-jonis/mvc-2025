@@ -17,9 +17,15 @@ class Game21
     private string $status = 'playing';
     private int $bankStopValue = 17;
 
-    public function __construct()
+    public function __construct(?Deck $deck = null)
     {
+        if ($deck !== null) {
+            $this->deck = $deck;
+            return;
+        }
+
         $this->deck = new Deck();
+
         for ($i = 1; $i <= 52; $i++) {
             $card = new CardGraphic();
             $card->setValue($i);
