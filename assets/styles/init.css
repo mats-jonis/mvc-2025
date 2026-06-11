@@ -7,11 +7,13 @@
  * to change.
  * https://www.paulirish.com/2012/box-sizing-border-box-ftw/
  */
- html {
-    box-sizing: border-box;
+html {
+  box-sizing: border-box;
 }
-*, *:before, *:after {
-    box-sizing: inherit;
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 /**
@@ -25,4 +27,8 @@ html {
 body {
   margin: 0;
   padding: 0;
+}
+
+.p {
+  color: #000;
 }
