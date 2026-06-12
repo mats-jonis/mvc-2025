@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Book{% endblock %}
+
+{% block main %}
+<div class="library">
+    <h1>Book</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ book.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ book.title }}</td>
+            </tr>
+            <tr>
+                <th>Isbn</th>
+                <td>{{ book.isbn }}</td>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <td>{{ book.author }}</td>
+            </tr>
+            <tr>
+                <th>Cover</th>
+                <td><img src="{{ asset('images/books/' ~ book.img) }}" alt="{{ book.title }}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('library_index') }}">back to list</a>
+
+    <a href="{{ path('library_book_edit', {'id': book.id}) }}">edit</a>
+
+    {{ include('book/_delete_form.html.twig') }}
+
+</div>
+{% endblock %}
