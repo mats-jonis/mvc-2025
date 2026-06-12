@@ -28,6 +28,9 @@ class DeckControllerJson
             'api/deck/draw' => 'Draws a card from the deck',
             'api/deck/draw/{num<\d+>}' => 'Draws one or serveral cards from the deck',
             'api/game' => 'Shows the current state of the 21 game in JSON',
+            'api/library/books' => 'Shows all books in the library in JSON',
+            'api/library/book/{isbn}' => 'Shows a single book by its ISBN',
+            'api/library/book/9780132350884' => 'Example: the book "Clean Code" by its ISBN',
             ];
 
         $data = [
