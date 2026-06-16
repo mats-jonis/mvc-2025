@@ -33,6 +33,7 @@
         </exclude>
         <report>
             <html outputDirectory="docs/coverage"/>
+            <clover outputFile="docs/coverage.clover"/>
         </report>
     </coverage>
 

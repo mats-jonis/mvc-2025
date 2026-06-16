@@ -36,3 +36,4 @@ yarn-error.log
 .php-cs-fixer.cache
 
 .phpdoc/
+docs/coverage.clover
