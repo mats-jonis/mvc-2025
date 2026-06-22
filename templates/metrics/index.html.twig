@@ -1,0 +1,211 @@
+{% extends "base.html.twig" %}
+
+{% block page_title %}Metrics{% endblock %}
+
+{% block title %}Metrics analysis{% endblock %}
+
+{% block main %}
+<article class="metrics container">
+    <h1>Metrics analys</h1>
+    <p>
+        Den här sidan analyserar kodkvaliteten i mitt MVC-projekt med hjälp av
+        <strong>phpmetrics</strong> (lokal statisk analys) och <strong>Scrutinizer CI</strong>.
+        Jag utgår från de sex C:na, identifierar flaskhalsar,
+        genomför konkreta förbättringar och jämför mätvärdena före och efter.
+    </p>
+
+    {# ============================================================ #}
+    <h2 id="introduktion">Introduktion</h2>
+    <p>
+        <strong>Clean code</strong> handlar om kod som är lätt att läsa, testa och ändra utan att
+        något oväntat går sönder. De sex C:na ger mätbara ingångar till det målet. Nedan
+        förklarar jag varje C och kopplar det till ett verkligt mätvärde från min egen kod.
+    </p>
+
+    <dl>
+        <dt>Codestyle</dt>
+        <dd>
+            Konsekvent formatering och namngivning gör koden förutsägbar att läsa. Jag kör
+            <code>composer csfix</code> och <code>composer lint</code> (PHPStan på nivå 9),
+            så stilen hålls automatiskt enhetlig. En ren kodstil minskar &rdquo;brus&rdquo; i diffar
+            och gör code review snabbare.
+        </dd>
+
+        <dt>Coverage</dt>
+        <dd>
+            Andelen kod som körs av testerna. Scrutinizer rapporterar
+            <strong>67&nbsp;%</strong> täckning. Otestad kod är overifierad kod, den kan
+            redan vara trasig utan att jag vet om det. Att höja täckningen ger trygghet vid
+            refaktorering.
+        </dd>
+
+        <dt>Complexity</dt>
+        <dd>
+            Cyklomatisk komplexitet räknar antalet oberoende vägar genom koden (beslutspunkter
+            + 1). Mitt snitt ligger på <strong>59,57 per klass</strong>, vilket är högt då ett
+            normalt värde brukar ligga klart lägre. Hög komplexitet betyder fler grenar att
+            testa och svårare kod att resonera om.
+        </dd>
+
+        <dt>Cohesion</dt>
+        <dd>
+            Cohesion (mäts ofta som LCOM) beskriver hur fokuserad en klass är. Hög cohesion =
+            klassen gör en sak och dess metoder hänger ihop. Låg cohesion är en signal om att
+            klassen bör delas upp.
+        </dd>
+
+        <dt>Coupling</dt>
+        <dd>
+            Hur beroende klasserna är av varandra. Phpmetrics visar efferent/afferent coupling
+            och instabilitet (I = Ce / (Ce + Ca)). Hög koppling gör att en ändring på ett ställe
+            riskerar att kräva ändringar på många andra.
+        </dd>
+
+        <dt>CRAP</dt>
+        <dd>
+            Change Risk Anti-Patterns kombinerar komplexitet och täckning:
+            CRAP = komplexitet&sup2; &times; (1 &minus; täckning)&sup3; + komplexitet. En komplex
+            metod som dessutom saknar tester får en hög CRAP-poäng. Det binder ihop mina två
+            svagaste punkter (hög komplexitet + 67&nbsp;% täckning) i ett enda tal, och är därför
+            mitt valda fokusmått.
+        </dd>
+     </dl>
+     {# ============================================================ #}
+    <h2 id="phpmetrics">Phpmetrics</h2>
+    <p>
+        Phpmetrics analyserar 7 klasser och 3&nbsp;108 rader kod. Översikten visar 7 violations
+        (0 critical, 2 errors) och ett snitt på 1,84 förutspådda buggar per klass &ndash; ett
+        Halstead-baserat mått som stiger med kodvolym och komplexitet.
+    </p>
+
+    <figure>
+        <img src="{{ asset('img/phpmetrics-overview.png') }}"
+             alt="Phpmetrics översikt med violations, komplexitet och bugs by class">
+        <figcaption>Phpmetrics översikt &ndash; komplexitet 59,57 och 1,84 buggar/klass sticker ut.</figcaption>
+    </figure>
+
+    <p>Utifrån rapporten hittar jag tre tydliga flaskhalsar:</p>
+
+    <ol>
+        <li>
+            <strong>Hög cyklomatisk komplexitet (Complexity).</strong><br>
+            Komplexiteten är koncentrerad till
+            <code>{</code> som ensam står för en stor andel av
+            de ~415 totala komplexitetspoängen. Spel-/turlogiken har många grenar (spelarens drag,
+            dealerns drag, bust-kontroll, poängräkning) vilket driver upp talet.
+        </li>
+        <li>
+            <strong>Låg cohesion (Cohesion).</strong><br>
+            <code></code> har en LCOM på
+            <code></code>, vilket tyder på att metoderna inte delar tillstånd och
+            att klassen gör mer än en sak.
+        </li>
+        <li>
+            <strong>Förutspådda buggar / maintainability (Code smell).</strong><br>
+            Snittet på 1,84 buggar per klass och de 2 errors i violations-listan pekar på samma
+            sak: stora, komplexa klasser är dyrare att underhålla. Maintainability index för
+            <code></code> ligger på <code></code>.
+        </li>
+
+        </ol>
+
+    {# ============================================================ #}
+    <h2 id="scrutinizer">Scrutinizer</h2>
+    <p>
+        Scrutinizer kör en extern inspektion vid varje push mot <code>main</code>. Vid första
+        inspektionen fick koden betyget <strong>10 (very good)</strong> med 3 issues funna och
+        67&nbsp;% täckning.
+    </p>
+
+    <p class="badges">
+        <a href="https://scrutinizer-ci.com/g/mats-jonis/mvc-2025/build-status/main">
+            <img src="https://scrutinizer-ci.com/g/mats-jonis/mvc-2025/badges/build.png?b=main" alt="Build Status">
+        </a>
+        <a href="https://scrutinizer-ci.com/g/mats-jonis/mvc-2025/?branch=main">
+            <img src="https://scrutinizer-ci.com/g/mats-jonis/mvc-2025/badges/coverage.png?b=main" alt="Code Coverage">
+        </a>
+        <a href="https://scrutinizer-ci.com/g/mats-jonis/mvc-2025/?branch=main">
+            <img src="https://scrutinizer-ci.com/g/mats-jonis/mvc-2025/badges/quality-score.png?b=main" alt="Scrutinizer Code Quality">
+        </a>
+    </p>
+
+    <figure>
+        <img src="{{ asset('img/scrutinizer-overview.png') }}"
+             alt="Scrutinizer översikt med betyg 10, coverage 67% och build passed">
+        <figcaption>Scrutinizer &ndash; betyg 10, men 3 issues och 67&nbsp;% täckning visar förbättringsutrymme.</figcaption>
+    </figure>
+
+    <p>Findings kopplade till 6C:</p>
+    <ol>
+        <li>
+            <strong>Coverage 67&nbsp;%.</strong><br>
+            En tredjedel av koden saknar tester. Det rör
+            framför allt de delar som tillkommit efter Card-namespacet (controllers och nyare
+            klasser) som hade 100&nbsp;% täckning tidigare.
+        </li>
+        <li>
+            <strong>3 issues (Code smell).</strong><br>
+          
+            Issues rör <code></code> och flaggas under Scrutinizers inspektion.
+        </li>
+        <li>
+            <strong>Hög CRAP där komplexitet möter låg täckning.</strong><br>
+            Metoderna i
+            <code></code> kombinerar hög cyklomatisk komplexitet med ofullständig
+            täckning, vilket ger CRAP-poäng på <code></code> &ndash; över
+            tumregeln 30 och därmed kandidater för både test och refaktorering.
+        </li>
+    </ol>
+
+    {# ============================================================ #}
+    <h2 id="forbattringar">Förbättringar</h2>
+    <p>Jag väljer tre förbättringar som angriper mina svagaste mätvärden direkt.</p>
+
+    <h3>1. Minska komplexiteten i den tyngsta klassen</h3>
+    <p>
+        <em>Vad:</em> bryta upp <code></code> &ndash; extrahera metoder,
+        ersätta nästlade <code>if</code>/<code>switch</code> med tidiga returns och flytta ut
+        delansvar till mindre metoder/klasser.
+        <em>Varför:</em> 59,57 i snitt är projektets största svaghet och driver både CRAP och
+        bugs/klass.
+        <em>Förväntad effekt:</em> lägre cyklomatisk komplexitet, lägre CRAP och färre förutspådda
+        buggar per klass.
+    </p>
+
+    <h3>2. Höj kodtäckningen från 67&nbsp;% mot 90&nbsp;%+</h3>
+    <p>
+        <em>Vad:</em> skriva PHPUnit-tester för de otestade controllers/klasserna.
+        <em>Varför:</em> uppgiften efterfrågar högre täckning, och otestad kod sänker både Coverage
+        och kvalitetsindex.
+        <em>Förväntad effekt:</em> Coverage upp, och eftersom CRAP-formeln har täckningen i kubik
+        sjunker CRAP kraftigt även utan att röra komplexiteten.
+    </p>
+
+    <h3>3. Åtgärda violations och issues</h3>
+    <p>
+        <em>Vad:</em> fixa de 7 phpmetrics-violations (2 errors) och de 3 Scrutinizer-issues
+        ordentligt &ndash; inte tysta ner dem.
+        <em>Varför:</em> de är konkret Code smell och drar ner kvalitetsindexet.
+        <em>Förväntad effekt:</em> färre violations/issues och ett stabilare quality-betyg.
+    </p>
+
+    <h3>Mätvärden före och efter</h3>
+    <table>
+        <thead>
+            <tr><th>Mätvärde</th><th>Före</th><th>Efter</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Cyklomatisk komplexitet (snitt/klass)</td><td>59,57</td><td></td></tr>
+            <tr><td>Coverage (Scrutinizer)</td><td>67&nbsp;%</td><td></td></tr>
+            <tr><td>Violations (phpmetrics)</td><td>7 (2 errors)</td><td></td></tr>
+            <tr><td>Issues (Scrutinizer)</td><td>3</td><td></td></tr>
+            <tr><td>Bugs by class (snitt)</td><td>1,84</td><td></td></tr>
+            <tr><td>Scrutinizer-betyg</td><td>10,00</td><td></td></tr>
+        </tbody>
+    </table>
+
+    {# ============================================================ #}
+    <h2 id="diskussion">Diskussion</h2>
+    
+</article>
+{% endblock %}
