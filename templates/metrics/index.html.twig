@@ -34,17 +34,17 @@
         <dt>Coverage</dt>
         <dd>
             Andelen kod som körs av testerna. Scrutinizer rapporterar
-            <strong>67&nbsp;%</strong> täckning. Otestad kod är overifierad kod, den kan
-            redan vara trasig utan att jag vet om det. Att höja täckningen ger trygghet vid
-            refaktorering.
+            <strong>67&nbsp;%</strong> täckning; efter förbättringarna <strong>97&nbsp;%</strong>.
+            Phpmetrics-kolumnen &rdquo;Unit testsuites calling it&rdquo; visar var luckan satt:
+            modell-lagret var testat (Card, Deck, Game21) medan controllers låg på 0.
         </dd>
 
         <dt>Complexity</dt>
         <dd>
-            Cyklomatisk komplexitet räknar antalet oberoende vägar genom koden (beslutspunkter
-            + 1). Mitt snitt ligger på <strong>59,57 per klass</strong>, vilket är högt då ett
-            normalt värde brukar ligga klart lägre. Hög komplexitet betyder fler grenar att
-            testa och svårare kod att resonera om.
+            Cyklomatisk komplexitet räknar antalet oberoende vägar genom koden.
+            Snittet ligger på <strong>3,53 per klass</strong>, vilket är ett bra värde. Dock sticker en klass ut:
+            <code>Game21</code> har WMC <strong>26</strong> och class cyclomatic <strong>16</strong>
+            &ndash; projektets tätaste klass och en kandidat för uppdelning.
         </dd>
 
         <dt>Cohesion</dt>
@@ -52,69 +52,75 @@
             Cohesion (mäts ofta som LCOM) beskriver hur fokuserad en klass är. Hög cohesion =
             klassen gör en sak och dess metoder hänger ihop. Låg cohesion är en signal om att
             klassen bör delas upp.
+            Mina controllers (t.ex. <code>DeckControllerJson</code>) blandar routing, affärslogik
+            och datahantering i samma klass, vilket är låg cohesion och en signal om att logik
+            bör flyttas ut till modell-/service-lagret.
         </dd>
 
         <dt>Coupling</dt>
         <dd>
-            Hur beroende klasserna är av varandra. Phpmetrics visar efferent/afferent coupling
-            och instabilitet (I = Ce / (Ce + Ca)). Hög koppling gör att en ändring på ett ställe
-            riskerar att kräva ändringar på många andra.
+            Hur beroende klasserna är av varandra. Phpmetrics &rdquo;Relative system complexity&rdquo;
+            fångar den strukturella kopplingen, och den exploderar i mina controllers:
+            <code>DeckControllerJson</code> ligger på <strong>324</strong> mot ett snitt på 60,42.
+            Hög koppling gör att en ändring på ett ställe riskerar att kräva ändringar på många andra.
         </dd>
 
         <dt>CRAP</dt>
         <dd>
             Change Risk Anti-Patterns kombinerar komplexitet och täckning:
-            CRAP = komplexitet&sup2; &times; (1 &minus; täckning)&sup3; + komplexitet. En komplex
-            metod som dessutom saknar tester får en hög CRAP-poäng. Det binder ihop mina två
-            svagaste punkter (hög komplexitet + 67&nbsp;% täckning) i ett enda tal, och är därför
-            mitt valda fokusmått.
+            CRAP = komplexitet&sup2; &times; (1 &minus; täckning)&sup3; + komplexitet. Mina otestade
+            controllers var värsta fallet: hög komplexitet <em>och</em> noll täckning.
+            <code>Game21</code> är lika komplex men testad, och får därför mycket lägre CRAP vilket 
+            visar precis hur måttet fungerar. CRAP är därför mitt valda fokusmått.
         </dd>
      </dl>
      {# ============================================================ #}
     <h2 id="phpmetrics">Phpmetrics</h2>
     <p>
-        Phpmetrics analyserar 7 klasser och 3&nbsp;108 rader kod. Översikten visar 7 violations
-        (0 critical, 2 errors) och ett snitt på 1,84 förutspådda buggar per klass &ndash; ett
-        Halstead-baserat mått som stiger med kodvolym och komplexitet.
+        Phpmetrics analyserar 19 klasser och 813 rader kod. Översikten visar 4 violations (0 critical, 0 errors) 
+        snitt för cyklomatisk komplexitet 3,53 och 0,1 Halstead-buggar per klass.
+        Svagheten syns först per klass, strukturkomplexiteten
+        och testtäckningen hos mina controllers.
     </p>
+
+ 
 
     <figure>
         <img src="{{ asset('img/phpmetrics-overview.png') }}"
              alt="Phpmetrics översikt med violations, komplexitet och bugs by class">
-        <figcaption>Phpmetrics översikt &ndash; komplexitet 59,57 och 1,84 buggar/klass sticker ut.</figcaption>
+        <figcaption>Phpmetrics översikt med 813 rader, snittkomplexitet 3,53, 0,1 buggar/klass.</figcaption>
     </figure>
 
     <p>Utifrån rapporten hittar jag tre tydliga flaskhalsar:</p>
 
     <ol>
         <li>
-            <strong>Hög cyklomatisk komplexitet (Complexity).</strong><br>
-            Komplexiteten är koncentrerad till
-            <code>{</code> som ensam står för en stor andel av
-            de ~415 totala komplexitetspoängen. Spel-/turlogiken har många grenar (spelarens drag,
-            dealerns drag, bust-kontroll, poängräkning) vilket driver upp talet.
+            <strong>DeckControllerJson &ndash; hög strukturkomplexitet (Coupling/Complexity).</strong><br>
+            Relativ systemkomplexitet <strong>324,36</strong> (högst i projektet), WMC 17, flest
+            Halstead-buggar (0,51) och <strong>0 testsviter</strong> i den statiska analysen.
+            Klassen gör för mycket och är den värsta enskilda klassen.
         </li>
         <li>
-            <strong>Låg cohesion (Cohesion).</strong><br>
-            <code></code> har en LCOM på
-            <code></code>, vilket tyder på att metoderna inte delar tillstånd och
-            att klassen gör mer än en sak.
+            <strong>Game21 &ndash; hög komplexitet och defects (Complexity/Cohesion).</strong><br>
+            WMC <strong>26</strong> och class cyclomatic <strong>16</strong> (tätast i projektet),
+            samt högst Kan-defects (<strong>1,38</strong>). Den är väl testad, så här handlar det
+            inte om coverage utan om att klassen bär för mycket ansvar.
         </li>
         <li>
-            <strong>Förutspådda buggar / maintainability (Code smell).</strong><br>
-            Snittet på 1,84 buggar per klass och de 2 errors i violations-listan pekar på samma
-            sak: stora, komplexa klasser är dyrare att underhålla. Maintainability index för
-            <code></code> ligger på <code></code>.
+            <strong>Otestade controllers (Coverage).</strong><br>
+            <code>CardGameController</code> (strukturkomplexitet 196,73, WMC 16) och
+            <code>Game21Controller</code> (144,74) har <strong>0 testsviter</strong> i phpmetrics.
+            Det var min ursprungliga 67&nbsp;%-lucka, tydligt lokaliserad.
         </li>
-
-        </ol>
+    </ol>
 
     {# ============================================================ #}
     <h2 id="scrutinizer">Scrutinizer</h2>
     <p>
-        Scrutinizer kör en extern inspektion vid varje push mot <code>main</code>. Vid första
-        inspektionen fick koden betyget <strong>10 (very good)</strong> med 3 issues funna och
-        67&nbsp;% täckning.
+        Scrutinizer kör en extern inspektion vid varje push mot <code>main</code>. Den första
+        inspektionen gav betyget <strong>10,00 (very good)</strong> med 3 issues och 67&nbsp;%
+        täckning. Efter mina förbättringar håller betyget kvar på 10,00, täckningen har stigit till
+        <strong>97&nbsp;%</strong> och 1 mindre issue kvarstår.
     </p>
 
     <p class="badges">
@@ -131,29 +137,31 @@
 
     <figure>
         <img src="{{ asset('img/scrutinizer-overview.png') }}"
-             alt="Scrutinizer översikt med betyg 10, coverage 67% och build passed">
-        <figcaption>Scrutinizer &ndash; betyg 10, men 3 issues och 67&nbsp;% täckning visar förbättringsutrymme.</figcaption>
+             alt="Scrutinizer översikt med betyg 10 och ökad coverage">
+        <figcaption>Scrutinizer betyg 10,00 och coverage upp till 97&nbsp;% (+30).</figcaption>
     </figure>
 
     <p>Findings kopplade till 6C:</p>
     <ol>
         <li>
-            <strong>Coverage 67&nbsp;%.</strong><br>
-            En tredjedel av koden saknar tester. Det rör
-            framför allt de delar som tillkommit efter Card-namespacet (controllers och nyare
-            klasser) som hade 100&nbsp;% täckning tidigare.
+            <strong>Coverage (Coverage).</strong><br>
+            Den största rörelsen: 67&nbsp;% &rarr; 97&nbsp;%. Phpmetrics visade att luckan satt i
+            controllers och i Book-domänen (entity, form, fixtures).
         </li>
         <li>
-            <strong>3 issues (Code smell).</strong><br>
-          
-            Issues rör <code></code> och flaggas under Scrutinizers inspektion.
+            <strong>1 issue (falsk positiv).</strong><br>
+            Efter att <code>tests/</code> och <code>tools/</code> exkluderats från den statiska
+            analysen kvarstår ett issue i <code>src/Kernel.php</code>: Scrutinizer tror att
+            <code>MicroKernelTrait</code> saknar egenskaperna <code>$instanceof</code> och
+            <code>$name</code>. Det är en känd begränsning i analysen av Symfonys kärna, inte ett
+            verkligt fel. De ursprungliga issuesen i php-cs-fixer-konfigurationen och i testkoden
+            var också falska positiva och faller bort med exkluderingen.
         </li>
         <li>
             <strong>Hög CRAP där komplexitet möter låg täckning.</strong><br>
-            Metoderna i
-            <code></code> kombinerar hög cyklomatisk komplexitet med ofullständig
-            täckning, vilket ger CRAP-poäng på <code></code> &ndash; över
-            tumregeln 30 och därmed kandidater för både test och refaktorering.
+            Metoderna i <code>DeckControllerJson</code> och <code>CardGameController</code> kombinerar
+            hög komplexitet med 0 testsviter i den statiska analysen och hamnar därför högt i CRAP.
+            <code>Game21</code> är lika komplex men testad, och får lågt CRAP.
         </li>
     </ol>
 
@@ -161,32 +169,38 @@
     <h2 id="forbattringar">Förbättringar</h2>
     <p>Jag väljer tre förbättringar som angriper mina svagaste mätvärden direkt.</p>
 
-    <h3>1. Minska komplexiteten i den tyngsta klassen</h3>
+    <h3>1. Öka coverage på Book-domänen</h3>
     <p>
-        <em>Vad:</em> bryta upp <code></code> &ndash; extrahera metoder,
-        ersätta nästlade <code>if</code>/<code>switch</code> med tidiga returns och flytta ut
-        delansvar till mindre metoder/klasser.
-        <em>Varför:</em> 59,57 i snitt är projektets största svaghet och driver både CRAP och
-        bugs/klass.
-        <em>Förväntad effekt:</em> lägre cyklomatisk komplexitet, lägre CRAP och färre förutspådda
-        buggar per klass.
+        <em>Vad:</em> skriva PHPUnit-tester för <code>Book</code> (entity), <code>BookType</code>
+        (form) och <code>BookFixtures</code> alla på 0&nbsp;% innan.
+        <em>Varför:</em> de var de största otestade klasserna inom coverage-scopet och drog ner
+        totalen mest.
+        <em>Förväntad effekt:</em> coverage upp, och eftersom täckningen ligger i kubik i
+        CRAP-formeln sjunker CRAP på dessa klasser.
     </p>
 
-    <h3>2. Höj kodtäckningen från 67&nbsp;% mot 90&nbsp;%+</h3>
+    <h3>2. Testa den mest komplexa controllern</h3>
     <p>
-        <em>Vad:</em> skriva PHPUnit-tester för de otestade controllers/klasserna.
-        <em>Varför:</em> uppgiften efterfrågar högre täckning, och otestad kod sänker både Coverage
-        och kvalitetsindex.
-        <em>Förväntad effekt:</em> Coverage upp, och eftersom CRAP-formeln har täckningen i kubik
-        sjunker CRAP kraftigt även utan att röra komplexiteten.
+        <em>Vad:</em> funktionella tester (<code>WebTestCase</code>) för
+        <code>DeckControllerJson</code> alla routes och grenar (shuffle, draw, tom lek).
+        <em>Varför:</em> det är klassen med högst strukturkomplexitet (324) och 0 tester.
+        <em>Förväntad effekt:</em> regressionsskydd och lägre CRAP. (Notera: phpmetrics räknar inte
+        funktionella tester i &rdquo;testsuites calling it&rdquo;, men runtime-täckningen ökar.)
     </p>
 
-    <h3>3. Åtgärda violations och issues</h3>
+    <h3>3. Verifiera kontinuerligt via Scrutinizer</h3>
     <p>
-        <em>Vad:</em> fixa de 7 phpmetrics-violations (2 errors) och de 3 Scrutinizer-issues
-        ordentligt &ndash; inte tysta ner dem.
-        <em>Varför:</em> de är konkret Code smell och drar ner kvalitetsindexet.
-        <em>Förväntad effekt:</em> färre violations/issues och ett stabilare quality-betyg.
+        <em>Vad:</em> köra Scrutinizer-inspektion vid varje push och hålla betyget på 10 medan
+        coverage stiger.
+        <em>Varför:</em> fångar regressioner direkt och ger ett objektivt kvalitetsindex.
+        <em>Förväntad effekt:</em> bibehållet betyg 10 och en mätbar coverage-ökning.
+    </p>
+
+    <p>
+        En medveten begränsning: jag valde att <em>testa</em> hellre än att <em>refaktorera</em> i
+        denna iteration. Därför är den höga strukturkomplexiteten i <code>DeckControllerJson</code>
+        (324) och WMC i <code>Game21</code> (26) oförändrad &ndash; att banta dessa klasser är
+        nästa naturliga steg.
     </p>
 
     <h3>Mätvärden före och efter</h3>
@@ -195,17 +209,43 @@
             <tr><th>Mätvärde</th><th>Före</th><th>Efter</th></tr>
         </thead>
         <tbody>
-            <tr><td>Cyklomatisk komplexitet (snitt/klass)</td><td>59,57</td><td></td></tr>
-            <tr><td>Coverage (Scrutinizer)</td><td>67&nbsp;%</td><td></td></tr>
-            <tr><td>Violations (phpmetrics)</td><td>7 (2 errors)</td><td></td></tr>
-            <tr><td>Issues (Scrutinizer)</td><td>3</td><td></td></tr>
-            <tr><td>Bugs by class (snitt)</td><td>1,84</td><td></td></tr>
-            <tr><td>Scrutinizer-betyg</td><td>10,00</td><td></td></tr>
+            <tr><td>Coverage (Scrutinizer)</td><td>67&nbsp;%</td><td>97&nbsp;%</td></tr>
+            <tr><td>Lokal radtäckning (PHPUnit)</td><td>77/114 (67,5&nbsp;%)</td><td>112/114 (98,2&nbsp;%)</td></tr>
+            <tr><td>App\Entity\Book , täckning</td><td>0&nbsp;%</td><td>100&nbsp;%</td></tr>
+            <tr><td>App\Form\BookType ,täckning</td><td>0&nbsp;%</td><td>100&nbsp;%</td></tr>
+            <tr><td>App\DataFixtures\BookFixtures ,täckning</td><td>0&nbsp;%</td><td>100&nbsp;%</td></tr>
+            <tr><td>Scrutinizer-betyg</td><td>10,00</td><td>10,00</td></tr>
+            <tr><td>Scrutinizer issues</td><td>3</td><td>1 (minor)</td></tr>
         </tbody>
     </table>
 
     {# ============================================================ #}
     <h2 id="diskussion">Diskussion</h2>
-    
+    <p>
+        Att jobba mot clean code med phpmetrics och Scrutinizer fungerar bra som en återkommande
+        loop: mät, hitta de värsta talen, åtgärda, mät igen. Den största fördelen är att kvalitet
+        blir <em>synlig</em> och jämförbar över tid i stället för en känsla &ndash; och att
+        Scrutinizer kör automatiskt vid varje push så att regressioner fångas tidigt. I mitt fall
+        var det mätvärdena som avslöjade att mina controllers var feta och otestade, trots att
+        översiktssiffrorna såg bra ut.
+    </p>
+    <p>
+        Det finns dock tydliga nackdelar. Mätvärden kan bli ett självändamål. Mitt coverage-lyft
+        från 67&nbsp;% till 97&nbsp;% kom till stor del från triviala getter/setter-tester på
+        <code>Book</code>,kod utan logik att gå sönder. Samtidigt är mitt mest värdefulla
+        test (det funktionella testet av <code>DeckControllerJson</code>) sådant som phpmetrics
+        inte ens räknar som test, eftersom controllern instansieras av ramverket och inte refereras
+        direkt i testkoden. Två verktyg kan alltså vara oense om samma klass: phpmetrics säger
+        &rdquo;0 tester&rdquo; medan Scrutinizers runtime-täckning säger att den är körd. Det visar
+        varför man inte ska lita blint på ett enda mättal.
+    </p>
+    <p>
+        En annan insikt: tester sänker inte statisk komplexitet. Coverage steg kraftigt, men
+        <code>DeckControllerJson</code> är fortfarande 324 i strukturkomplexitet och
+        <code>Game21</code> har fortfarande WMC 26. Verklig komplexitetsminskning kräver
+        refaktorering, inte fler tester. Det finns också en gräns för vad som är värt att testa,
+        ett tomt repository eller en enradig fixture behöver knappast egna tester, och att tvinga
+        upp dem till 100&nbsp;% är mest sysselsättning.
+    </p>
 </article>
 {% endblock %}
