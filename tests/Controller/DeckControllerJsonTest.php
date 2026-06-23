@@ -21,6 +21,7 @@ class DeckControllerJsonTest extends WebTestCase
         $this->assertResponseHeaderSame('Content-Type', 'application/json');
 
         $data = json_decode((string) $client->getResponse()->getContent(), true);
+        $this->assertIsArray($data);
         $this->assertArrayHasKey('All JSON routes on the site:', $data);
     }
 
@@ -36,6 +37,7 @@ class DeckControllerJsonTest extends WebTestCase
         $this->assertResponseHeaderSame('Content-Type', 'application/json');
 
         $data = json_decode((string) $client->getResponse()->getContent(), true);
+        $this->assertIsArray($data);
         $this->assertCount(52, $data['All cards in the deck:']);
     }
 
@@ -50,6 +52,7 @@ class DeckControllerJsonTest extends WebTestCase
         $this->assertResponseIsSuccessful();
 
         $data = json_decode((string) $client->getResponse()->getContent(), true);
+        $this->assertIsArray($data);
         $this->assertCount(52, $data['All shuffled cards in the deck:']);
     }
 
@@ -65,6 +68,7 @@ class DeckControllerJsonTest extends WebTestCase
         $this->assertResponseIsSuccessful();
 
         $data = json_decode((string) $client->getResponse()->getContent(), true);
+        $this->assertIsArray($data);
         $this->assertStringContainsString('no cards', $data['message']);
         $this->assertSame(0, $data['numCards']);
     }
@@ -84,6 +88,7 @@ class DeckControllerJsonTest extends WebTestCase
         $this->assertResponseIsSuccessful();
 
         $data = json_decode((string) $client->getResponse()->getContent(), true);
+        $this->assertIsArray($data);
         $this->assertSame('', $data['message']);
         $this->assertSame(51, $data['numCards']);
         $this->assertCount(1, $data['drawnCards']);
@@ -101,6 +106,7 @@ class DeckControllerJsonTest extends WebTestCase
         $this->assertResponseIsSuccessful();
 
         $data = json_decode((string) $client->getResponse()->getContent(), true);
+        $this->assertIsArray($data);
         $this->assertSame(49, $data['numCards']);
         $this->assertCount(3, $data['drawnCards']);
     }
@@ -118,6 +124,7 @@ class DeckControllerJsonTest extends WebTestCase
         $this->assertResponseIsSuccessful();
 
         $data = json_decode((string) $client->getResponse()->getContent(), true);
+        $this->assertIsArray($data);
         $this->assertSame(0, $data['numCards']);
         $this->assertCount(52, $data['drawnCards']);
         $this->assertStringContainsString('no cards', $data['message']);
@@ -135,6 +142,7 @@ class DeckControllerJsonTest extends WebTestCase
         $this->assertResponseIsSuccessful();
 
         $data = json_decode((string) $client->getResponse()->getContent(), true);
+        $this->assertIsArray($data);
         $this->assertArrayHasKey('message', $data);
         $this->assertStringContainsString('No active game', $data['message']);
     }

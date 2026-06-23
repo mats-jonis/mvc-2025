@@ -49,7 +49,7 @@
 <div class="page">
     <div class="content content-first">
         <div class="report-details">
-            Created at 2026-06-21 19:31:05        , with PHPMetrics v2.9.1 (<a href="https://twitter.com/Halleck45">Jean-François Lépine</a>).
+            Created at 2026-06-23 14:41:54        , with PHPMetrics v2.9.1 (<a href="https://twitter.com/Halleck45">Jean-François Lépine</a>).
         </div>
 
         
@@ -60,24 +60,24 @@
         <div class="bloc bloc-number">
             <div class="label">Test suites</div>
             <div class="number">
-                4            </div>
+                8            </div>
         </div>
     </div>
     <div class="column">
         <div class="bloc bloc-number">
             <div class="label">Assertions</div>
             <div class="number">
-                57            </div>
+                104            </div>
         </div>
     </div>
     <div class="column">
         <div class="bloc bloc-number">
             <div class="label">
                 classes never called by tests
-                <small>(78.95 %)</small>
+                <small>(68.42 %)</small>
             </div>
             <div class="number">
-                15            </div>
+                13            </div>
         </div>
     </div>
 </div>
@@ -103,17 +103,6 @@
                         </thead>
                         <tbody id="contentAreaJunitNeverCalled" class="clusterize-content">
                                                     <tr>
-                                <td><span class="path">App\Entity\Book</span></td>
-                                                                    <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
-                                        1                                        </span>
-                                    </td>
-                                                                    <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.04);">
-                                        0.04                                        </span>
-                                    </td>
-                                                            </tr>
-                                                        <tr>
                                 <td><span class="path">App\Controller\LibraryControllerJson</span></td>
                                                                     <td>
                                         <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.07);">
@@ -235,17 +224,6 @@
                                     </td>
                                                             </tr>
                                                         <tr>
-                                <td><span class="path">App\DataFixtures\BookFixtures</span></td>
-                                                                    <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.07);">
-                                        2                                        </span>
-                                    </td>
-                                                                    <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.04);">
-                                        0.04                                        </span>
-                                    </td>
-                                                            </tr>
-                                                        <tr>
                                 <td><span class="path">App\DataFixtures\AppFixtures</span></td>
                                                                     <td>
                                         <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
@@ -338,6 +316,50 @@
                                                                             <br>                                        <span class="badge" title="Cyclomatic complexity of class">
                                             4                                        </span>
                                         <span class="path">App\Card\Deck</span>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <td valign="top"><span class="path">App\Tests\Controller\DeckControllerJsonTest</span></td>
+                                <td style="padding-bottom: 1em;">
+                                                                                                                    <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">Symfony\Bundle\FrameworkBundle\Test\WebTestCase</span>
+                                                                            <br>                                        <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">static</span>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <td valign="top"><span class="path">App\Tests\DataFixtures\BookFixturesTest</span></td>
+                                <td style="padding-bottom: 1em;">
+                                                                                                                    <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">PHPUnit\Framework\TestCase</span>
+                                                                            <br>                                        <span class="badge" title="Cyclomatic complexity of class">
+                                            2                                        </span>
+                                        <span class="path">App\DataFixtures\BookFixtures</span>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <td valign="top"><span class="path">App\Tests\Entity\BookTest</span></td>
+                                <td style="padding-bottom: 1em;">
+                                                                                                                    <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">PHPUnit\Framework\TestCase</span>
+                                                                            <br>                                        <span class="badge" title="Cyclomatic complexity of class">
+                                            1                                        </span>
+                                        <span class="path">App\Entity\Book</span>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <td valign="top"><span class="path">App\Tests\Form\BookTypeTest</span></td>
+                                <td style="padding-bottom: 1em;">
+                                                                                                                    <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">Symfony\Component\Form\Test\TypeTestCase</span>
+                                                                            <br>                                        <span class="badge" title="Cyclomatic complexity of class">
+                                            1                                        </span>
+                                        <span class="path">App\Entity\Book</span>
                                                                     </td>
                             </tr>
                                                     <tr>
@@ -601,7 +623,7 @@
 
 
             
-            var json = {"name":"Execution time","children":[{"name":"App\\Tests\\Card\\CardGraphicTest","time":0.014886},{"name":"App\\Tests\\Card\\CardTest","time":0.008812},{"name":"App\\Tests\\Card\\DeckTest","time":0.008143},{"name":"App\\Tests\\Game\\Game21Test","time":0.013751}]};
+            var json = {"name":"Execution time","children":[{"name":"App\\Tests\\Card\\CardGraphicTest","time":0.017726},{"name":"App\\Tests\\Card\\CardTest","time":0.010865},{"name":"App\\Tests\\Card\\DeckTest","time":0.010046},{"name":"App\\Tests\\Controller\\DeckControllerJsonTest","time":1.734651},{"name":"App\\Tests\\DataFixtures\\BookFixturesTest","time":0.036558},{"name":"App\\Tests\\Entity\\BookTest","time":0.004231},{"name":"App\\Tests\\Form\\BookTypeTest","time":0.165424},{"name":"App\\Tests\\Game\\Game21Test","time":0.012954}]};
             root = json;
             var nodes = treemap.nodes(json)
                 .filter(function (d) {

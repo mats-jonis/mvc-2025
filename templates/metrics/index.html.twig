@@ -44,12 +44,12 @@
             Cyklomatisk komplexitet räknar antalet oberoende vägar genom koden.
             Snittet ligger på <strong>3,53 per klass</strong>, vilket är ett bra värde. Dock sticker en klass ut:
             <code>Game21</code> har WMC <strong>26</strong> och class cyclomatic <strong>16</strong>
-            &ndash; projektets tätaste klass och en kandidat för uppdelning.
+            som är projektets tätaste klass och en kandidat för uppdelning.
         </dd>
 
         <dt>Cohesion</dt>
         <dd>
-            Cohesion (mäts ofta som LCOM) beskriver hur fokuserad en klass är. Hög cohesion =
+            Cohesion (mäts ofta som LCOM) beskriver hur fokuserad en klass är. Hög cohesion innebär att 
             klassen gör en sak och dess metoder hänger ihop. Låg cohesion är en signal om att
             klassen bör delas upp.
             Mina controllers (t.ex. <code>DeckControllerJson</code>) blandar routing, affärslogik
@@ -156,6 +156,11 @@
             <code>$name</code>. Det är en känd begränsning i analysen av Symfonys kärna, inte ett
             verkligt fel. De ursprungliga issuesen i php-cs-fixer-konfigurationen och i testkoden
             var också falska positiva och faller bort med exkluderingen.
+            <figure>
+                <img src="{{ asset('img/scrutinizer-issues.png') }}"
+                    alt="Scrutinizer issues">
+                <figcaption>Scrutinizer issues</figcaption>
+            </figure>
         </li>
         <li>
             <strong>Hög CRAP där komplexitet möter låg täckning.</strong><br>
@@ -215,7 +220,7 @@
             <tr><td>App\Form\BookType ,täckning</td><td>0&nbsp;%</td><td>100&nbsp;%</td></tr>
             <tr><td>App\DataFixtures\BookFixtures ,täckning</td><td>0&nbsp;%</td><td>100&nbsp;%</td></tr>
             <tr><td>Scrutinizer-betyg</td><td>10,00</td><td>10,00</td></tr>
-            <tr><td>Scrutinizer issues</td><td>3</td><td>1 (minor)</td></tr>
+            <tr><td>Scrutinizer issues</td><td>3</td><td>1 (falsk positiv)</td></tr>
         </tbody>
     </table>
 
@@ -224,7 +229,7 @@
     <p>
         Att jobba mot clean code med phpmetrics och Scrutinizer fungerar bra som en återkommande
         loop: mät, hitta de värsta talen, åtgärda, mät igen. Den största fördelen är att kvalitet
-        blir <em>synlig</em> och jämförbar över tid i stället för en känsla &ndash; och att
+        blir <em>synlig</em> och jämförbar över tid i stället för en känsla och att
         Scrutinizer kör automatiskt vid varje push så att regressioner fångas tidigt. I mitt fall
         var det mätvärdena som avslöjade att mina controllers var feta och otestade, trots att
         översiktssiffrorna såg bra ut.

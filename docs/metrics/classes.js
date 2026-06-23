@@ -95,7 +95,7 @@ var classes = [
         "afferentCoupling": 2,
         "efferentCoupling": 0,
         "instability": 0,
-        "numberOfUnitTests": 0,
+        "numberOfUnitTests": 9,
         "violations": {}
     },
     {
@@ -1436,7 +1436,7 @@ var classes = [
         "afferentCoupling": 0,
         "efferentCoupling": 3,
         "instability": 1,
-        "numberOfUnitTests": 0,
+        "numberOfUnitTests": 1,
         "violations": {}
     },
     {
