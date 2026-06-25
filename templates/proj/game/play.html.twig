@@ -1,0 +1,91 @@
+{% extends 'proj/base.html.twig' %}
+
+{% block title %}Spelbord{% endblock %}
+
+{% block body %}
+<section class="bj-table">
+    <div class="bj-topbar">
+        <span class="bj-player">{{ state.playerName }}</span>
+        <span class="bj-money">Saldo: {{ state.money }}</span>
+        <span class="bj-cardsleft">Kort kvar: {{ state.cardsLeft }}</span>
+    </div>
+
+    {% if state.status == 'betting' %}
+        <div class="bj-betting">
+            <h2>Lägg dina insatser (1–3 händer)</h2>
+            <form method="post" action="{{ path('proj_game_deal') }}" class="bj-bet-form">
+                {% for i in 1..3 %}
+                    <label class="bj-label">
+                        Hand {{ i }}{% if i > 1 %} (lämna tom för att hoppa över){% endif %}
+                        <input type="number" name="bets[]" class="bj-input"
+                               min="0" step="10" value="{{ i == 1 ? 100 : 0 }}">
+                    </label>
+                {% endfor %}
+                <button type="submit" class="proj-btn">Dela ut</button>
+            </form>
+        </div>
+    {% endif %}
+
+    {# Bank hands #}
+    {% if state.status != 'betting' %}
+        <div class="bj-bank">
+            <h2>Banken ({{ state.bankValue }})</h2>
+            <div class="bj-cards">
+                {% for card in state.bankCards %}
+                    <img src="{{ asset(card) }}" alt="card" class="bj-card">
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {# Player hands #}
+    {% if state.hands is not empty %}
+        <div class="bj-hands">
+            {% for hand in state.hands %}
+                <div class="bj-hand {% if loop.index0 == state.currentHand and state.status == 'playing' %}bj-hand--active{% endif %}">
+                    <div class="bj-hand__head">
+                        <span>Hand {{ loop.index }} ({{ hand.value }})</span>
+                        <span class="bj-hand__bet">Insats: {{ hand.bet }}</span>
+                    </div>
+                    <div class="bj-cards">
+                        {% for card in hand.cards %}
+                            <img src="{{ asset(card) }}" alt="card" class="bj-card">
+                        {% endfor %}
+                    </div>
+                    {% if hand.result %}
+                        <div class="bj-result bj-result--{{ hand.result }}">
+                            {{ {
+                                'win': 'Vinst',
+                                'lose': 'Förlust',
+                                'push': 'Lika',
+                                'blackjack': 'Blackjack!'
+                            }[hand.result] }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+     {% if state.status == 'playing' %}
+        <div class="bj-actions">
+            <form method="post" action="{{ path('proj_game_hit') }}">
+                <button type="submit" class="proj-btn">Dra kort</button>
+            </form>
+            <form method="post" action="{{ path('proj_game_stand') }}">
+                <button type="submit" class="proj-btn proj-btn--ghost">Stanna</button>
+            </form>
+        </div>
+    {% endif %}
+
+    {% if state.status == 'finished' %}
+        <div class="bj-actions">
+            <form method="post" action="{{ path('proj_game_newround') }}">
+                <button type="submit" class="proj-btn">Ny runda</button>
+            </form>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}
+
+

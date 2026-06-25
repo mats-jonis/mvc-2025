@@ -1,0 +1,23 @@
+{% extends 'proj/base.html.twig' %}
+
+{% block title %}Starta spel — Black Jack{% endblock %}
+
+{% block body %}
+<section class="bj-start">
+    <h1>Starta ett nytt spel</h1>
+    <p>Ange ditt spelarnamn och hur mycket du vill börja med.</p>
+
+    <form method="post" action="{{ path('proj_game_init') }}" class="bj-form">
+        <label class="bj-label">
+            Spelarnamn
+            <input type="text" name="playerName" class="bj-input" required maxlength="30">
+        </label>
+        <label class="bj-label">
+            Startsaldo
+            <input type="number" name="startMoney" class="bj-input" value="1000" min="10" step="10">
+        </label>
+        <button type="submit" class="proj-btn">Starta spel</button>
+    </form>
+</section>
+{% endblock %}
+

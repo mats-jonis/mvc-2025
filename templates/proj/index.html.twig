@@ -1,0 +1,30 @@
+{% extends 'proj/base.html.twig' %}
+
+{% block title %}Black Jack Startsida{% endblock %}
+
+{% block body %}
+<section class="proj-hero">
+    <h1 class="proj-hero__title">Black Jack</h1>
+    <p class="proj-hero__tagline">Spela mot banken. Nå 21 utan att spräcka.</p>
+    <div class="proj-hero__actions">
+        <a href="{{ path('proj_game') }}" class="proj-btn">Spela</a>
+        <a href="{{ path('proj_about') }}" class="proj-btn proj-btn--ghost">Om</a>
+    </div>
+</section>
+
+<section class="proj-features">
+    <article class="proj-feature">
+        <h2>Regler</h2>
+        <p>Banken stannar på 17, blackjack betalar 3:2 och lika ger insatsen tillbaka.</p>
+    </article>
+    <article class="proj-feature">
+        <h2>1–3 händer</h2>
+        <p>Spela upp till tre händer samtidigt mot banken i samma runda.</p>
+    </article>
+    <article class="proj-feature">
+        <h2>Testdriven utveckling</h2>
+        <p>Spellogiken vilar på enhetstestade klasser med full kodtäckning.</p>
+    </article>
+</section>
+
+{% endblock %}

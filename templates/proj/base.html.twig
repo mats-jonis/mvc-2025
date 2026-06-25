@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Black Jack{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('css/proj.css') }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body class="proj">
+    <header class="proj-header">
+        <div class="proj-header__inner">
+            <a href="{{ path('proj_landing') }}" class="proj-logo">&spades; Black Jack</a>
+            <nav class="proj-nav">
+                <a href="{{ path('proj_landing') }}" class="proj-nav__link">Hem</a>
+                <a href="{{ path('proj_about') }}" class="proj-nav__link">Om</a>
+                <a href="{{ path('proj_game') }}" class="proj-nav__link">Spela</a>
+                {# <a href="{{ path('proj_api') }}" class="proj-nav__link">API</a> #}
+            </nav>
+        </div>
+    </header>
+
+    <main class="proj-main">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="proj-flash proj-flash--{{ label }}">{{ message }}</div>
+            {% endfor %}
+        {% endfor %}
+
+        {% block body %}{% endblock %}
+    </main>
+
+    <footer class="proj-footer">
+        <p>Black Jack &mdash; projekt i kursen MVC. Byggt av mats-jonis.</p>
+        <p><a href="{{ path('report') }}">&larr; Tillbaka till report</a></p>
+    </footer>
+
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

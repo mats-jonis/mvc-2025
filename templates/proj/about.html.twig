@@ -1,0 +1,23 @@
+{% extends 'proj/base.html.twig' %}
+
+{% block title %}Om projektet Black Jack{% endblock %}
+
+{% block body %}
+<section class="proj-about">
+    <h1>Om projektet</h1>
+
+    <p>Det här projektet är ett Black Jack-spel byggt i Symfony som en del av
+    kursen MVC. Spelet följer riktiga Black Jack-regler: du anger ett spelarnamn,
+    får ett startsaldo och spelar mellan en och tre händer samtidigt mot banken.</p>
+
+    <p>Målet är att komma så nära 21 som möjligt utan att spräcka, och att slå
+    bankens hand. Banken drar kort tills den når 17. En blackjack på
+    21 på två kort get 3:2, en vinst ger 1:1 och lika innebär att
+    du får tillbaka din insats.</p>
+
+    <p>Spelet bygger vidare på kort- och kortlekskoden från tidigare kursmoment.
+    Spellogiken är samlad i fristående klasser (<code>BlackJack</code> och
+    <code>BlackJackHand</code>) som är täckta av enhetstester, medan controllers
+    och vyer hålls tunna.</p>
+</section>
+{% endblock %}
