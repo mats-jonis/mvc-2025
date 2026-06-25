@@ -17,6 +17,18 @@ Techstack:
 - Webpack Encore
 - MVC structure
 
+Projekt: Black Jack
+
+This repo also contains a Black Jack game built in Symfony, which is the
+course project (kmom10). The game lives under `/proj` and follows real
+Black Jack rules: the player enters a name and a starting balance and plays
+1–3 hands against the bank, where the bank stands on 17, a blackjack pays
+3:2 and a tie returns the stake.
+
+The rule logic sits in standalone, unit-tested classes (`BlackJack` and
+`BlackJackHand`) that build on the card code from earlier course moments
+(`Card`, `Deck`). The landing page is at `/proj` and an introduction at `/proj/about`.
+
 Installation:
 
 1. Clone the repository:
