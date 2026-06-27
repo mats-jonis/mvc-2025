@@ -1,0 +1,73 @@
+{% extends 'proj/base.html.twig' %}
+
+{% block title %}JSON API Black Jack{% endblock %}
+
+{% block body %}
+<section class="bj-api">
+    <h1>JSON API</h1>
+    <p>Klicka på en route för att testa den. Svaret visas nedanför.<br>
+    Spel-routerna delar session med spelet, så starta ett spel
+    på <a href="{{ path('proj_game') }}">spelsidan</a> först.</p>
+
+    <div class="bj-api-routes">
+        <div class="bj-api-route">
+            <code>GET /proj/api/deck</code>
+            <button class="proj-btn" data-url="{{ path('proj_api_deck') }}" data-method="GET">Testa</button>
+        </div>
+        <div class="bj-api-route">
+            <code>GET /proj/api/deck/shuffle</code>
+            <button class="proj-btn" data-url="{{ path('proj_api_deck_shuffle') }}" data-method="GET">Testa</button>
+        </div>
+        <div class="bj-api-route">
+            <code>GET /proj/api/game</code>
+            <button class="proj-btn" data-url="{{ path('proj_api_game') }}" data-method="GET">Testa</button>
+        </div>
+        <div class="bj-api-route">
+            <code>POST /proj/api/game/deal</code>
+            <label>Insats: <input type="number" id="deal-bet" value="100" min="10" step="10" class="bj-input"></label>
+            <button class="proj-btn proj-btn--deal" data-url="{{ path('proj_api_game_deal') }}" data-method="POST" data-deal="1">Testa</button>
+        </div>
+        <div class="bj-api-route">
+            <code>POST /proj/api/game/hit</code>
+            <button class="proj-btn proj-btn--hit" data-url="{{ path('proj_api_game_hit') }}" data-method="POST">Testa</button>
+        </div>
+        <div class="bj-api-route">
+            <code>POST /proj/api/game/stand</code>
+            <button class="proj-btn proj-btn--stand" data-url="{{ path('proj_api_game_stand') }}" data-method="POST">Testa</button>
+        </div>
+    </div>
+
+    <h2>Svar</h2>
+    <pre id="bj-api-output" class="bj-api-output">Inget anrop gjort än.</pre>
+</section>
+
+<script>
+    document.querySelectorAll('.bj-api-route button').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var url = btn.getAttribute('data-url');
+            var method = btn.getAttribute('data-method');
+            var output = document.getElementById('bj-api-output');
+            var options = { method: method };
+
+            if (method === 'POST') {
+                var body = new URLSearchParams();
+                if (btn.getAttribute('data-deal')) {
+                    var bet = document.getElementById('deal-bet').value;
+                    body.append('bets[]', bet);
+                }
+                options.body = body;
+            }
+
+            output.textContent = 'Laddar...';
+            fetch(url, options)
+                .then(function (res) { return res.json(); })
+                .then(function (data) {
+                    output.textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(function (err) {
+                    output.textContent = 'Fel: ' + err;
+                });
+        });
+    });
+</script>
+{% endblock %}
