@@ -247,6 +247,8 @@ body.proj {
 .bj-form {
   flex-direction: column;
   max-width: 340px;
+  align-items: flex-start;
+  margin-top: 1.5rem;
 }
 .bj-label {
   display: flex;
@@ -291,6 +293,97 @@ body.proj {
 }
 .proj-footer a {
   color: #d4af37;
+}
+
+.bj-api {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.bj-api h1,
+.bj-api h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  color: #d4af37;
+  margin-bottom: 0.8rem;
+}
+
+.bj-api p {
+  margin-bottom: 1.5rem;
+}
+
+.bj-api p a {
+  color: #d4af37;
+}
+
+.bj-api-routes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+.bj-api-route {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background: #0a4d32;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+}
+
+.bj-api-route code {
+  flex: 1;
+  min-width: 200px;
+  font-family: monospace;
+  color: whitesmoke;
+}
+
+.bj-api-route .bj-input {
+  width: 90px;
+}
+.bj-api-route label {
+  color: whitesmoke;
+}
+.bj-api-output {
+  background: #000;
+  color: #9fe1cb;
+  padding: 1.2rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: monospace;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.bj-db {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.bj-db h1,
+.bj-db h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  color: #d4af37;
+  margin: 1.5rem 0 0.6rem;
+}
+
+.bj-db p {
+  margin-bottom: 1rem;
+}
+
+.bj-db code {
+  background: #000;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  color: #9fe1cb;
+}
+
+.bj-db-er {
+  width: 35%;
+  max-width: 700px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.5rem;
 }
 
 @media screen and (max-width: 768px) {
