@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Game\BlackJack;
+use App\Entity\GameResult;
+use App\Repository\PlayerRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,15 +40,57 @@ class BlackJackController extends AbstractController
     }
 
     #[Route("/proj/game/play", name: "proj_game_play", methods: ['GET'])]
-    public function play(SessionInterface $session): Response
-    {
+    public function play(
+        SessionInterface $session,
+        EntityManagerInterface $entityManager,
+        PlayerRepository $playerRepo
+    ): Response {
         $game = $session->get('blackjack');
         if (!$game instanceof BlackJack) {
             return $this->redirectToRoute('proj_game');
         }
+
+        $state = $game->getState();
+
+        if ($state['status'] === 'finished' && !$session->get('blackjack_saved', false)) {
+            $this->saveResults($state, $entityManager, $playerRepo);
+            $session->set('blackjack_saved', true);
+        }
+        if ($state['status'] !== 'finished') {
+            $session->set('blackjack_saved', false);
+        }
+
         return $this->render('proj/game/play.html.twig', [
-            'state' => $game->getState(),
+            'state' => $state,
         ]);
+    }
+
+    /**
+    * Persist one GameResult row per hand of a finished round.
+    *
+    * @param array<string, mixed> $state
+    */
+    private function saveResults(
+        array $state,
+        EntityManagerInterface $entityManager,
+        PlayerRepository $playerRepo
+    ): void {
+        $playerName = is_string($state['playerName']) ? $state['playerName'] : 'Okänd';
+        $bankValue = is_int($state['bankValue']) ? $state['bankValue'] : 0;
+        $player = $playerRepo->findOrCreate($playerName);
+
+        /** @var array<int, array<string, mixed>> $hands */
+        $hands = is_array($state['hands']) ? $state['hands'] : [];
+        foreach ($hands as $hand) {
+            $result = new GameResult();
+            $result->setPlayer($player);
+            $result->setBet(is_int($hand['bet']) ? $hand['bet'] : 0);
+            $result->setPlayerValue(is_int($hand['value']) ? $hand['value'] : 0);
+            $result->setBankValue($bankValue);
+            $result->setOutcome(is_string($hand['result']) ? $hand['result'] : '');
+            $entityManager->persist($result);
+        }
+        $entityManager->flush();
     }
 
     #[Route("/proj/game/deal", name: "proj_game_deal", methods: ['POST'])]

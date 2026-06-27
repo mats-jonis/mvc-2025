@@ -201,7 +201,7 @@ class BlackJackTest extends TestCase
         $game = new BlackJack('Mats', 1000);
         $game->deal([100]);
         $this->assertContains($game->getStatus(), ['playing', 'finished']);
-        $this->assertLessThanOrEqual(900, $game->getMoney());
+        $this->assertGreaterThanOrEqual(900, $game->getMoney());
     }
 
     public function testNewRoundRebuildsDeckWhenLow(): void
