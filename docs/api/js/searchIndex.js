@@ -101,6 +101,51 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Card-Deck.html#property_deck"
         },                {
+            "fqsen": "\\App\\Controller\\BlackJackApiController",
+            "name": "BlackJackApiController",
+            "summary": "",
+            "url": "classes/App-Controller-BlackJackApiController.html"
+        },                {
+            "fqsen": "\\App\\Controller\\BlackJackApiController\u003A\u003Aindex\u0028\u0029",
+            "name": "index",
+            "summary": "The\u0020API\u0020landing\u0020page\u0020listing\u0020every\u0020route.",
+            "url": "classes/App-Controller-BlackJackApiController.html#method_index"
+        },                {
+            "fqsen": "\\App\\Controller\\BlackJackApiController\u003A\u003Adeck\u0028\u0029",
+            "name": "deck",
+            "summary": "Return\u0020a\u0020full\u0020ordered\u0020deck\u0020of\u002052\u0020cards\u0020as\u0020JSON.",
+            "url": "classes/App-Controller-BlackJackApiController.html#method_deck"
+        },                {
+            "fqsen": "\\App\\Controller\\BlackJackApiController\u003A\u003Ashuffle\u0028\u0029",
+            "name": "shuffle",
+            "summary": "Return\u0020a\u0020shuffled\u0020deck\u0020of\u002052\u0020cards\u0020as\u0020JSON.",
+            "url": "classes/App-Controller-BlackJackApiController.html#method_shuffle"
+        },                {
+            "fqsen": "\\App\\Controller\\BlackJackApiController\u003A\u003Agame\u0028\u0029",
+            "name": "game",
+            "summary": "Return\u0020the\u0020current\u0020game\u0020state,\u0020or\u0020a\u0020hint\u0020if\u0020no\u0020game\u0020is\u0020active.",
+            "url": "classes/App-Controller-BlackJackApiController.html#method_game"
+        },                {
+            "fqsen": "\\App\\Controller\\BlackJackApiController\u003A\u003Adeal\u0028\u0029",
+            "name": "deal",
+            "summary": "Deal\u0020a\u0020new\u0020round.\u0020Expects\u0020bets\u0020in\u0020the\u0020POST\u0020body.",
+            "url": "classes/App-Controller-BlackJackApiController.html#method_deal"
+        },                {
+            "fqsen": "\\App\\Controller\\BlackJackApiController\u003A\u003Ahit\u0028\u0029",
+            "name": "hit",
+            "summary": "The\u0020current\u0020hand\u0020draws\u0020a\u0020card.",
+            "url": "classes/App-Controller-BlackJackApiController.html#method_hit"
+        },                {
+            "fqsen": "\\App\\Controller\\BlackJackApiController\u003A\u003Astand\u0028\u0029",
+            "name": "stand",
+            "summary": "The\u0020current\u0020hand\u0020stands,\u0020play\u0020moves\u0020on.",
+            "url": "classes/App-Controller-BlackJackApiController.html#method_stand"
+        },                {
+            "fqsen": "\\App\\Controller\\BlackJackApiController\u003A\u003AbuildDeck\u0028\u0029",
+            "name": "buildDeck",
+            "summary": "Build\u0020a\u0020new\u0020ordered\u002052\u002Dcard\u0020deck.",
+            "url": "classes/App-Controller-BlackJackApiController.html#method_buildDeck"
+        },                {
             "fqsen": "\\App\\Controller\\BlackJackController",
             "name": "BlackJackController",
             "summary": "",
@@ -120,6 +165,11 @@ Search.appendIndex(
             "name": "play",
             "summary": "",
             "url": "classes/App-Controller-BlackJackController.html#method_play"
+        },                {
+            "fqsen": "\\App\\Controller\\BlackJackController\u003A\u003AsaveResults\u0028\u0029",
+            "name": "saveResults",
+            "summary": "Persist\u0020one\u0020GameResult\u0020row\u0020per\u0020hand\u0020of\u0020a\u0020finished\u0020round.",
+            "url": "classes/App-Controller-BlackJackController.html#method_saveResults"
         },                {
             "fqsen": "\\App\\Controller\\BlackJackController\u003A\u003Adeal\u0028\u0029",
             "name": "deal",
@@ -391,6 +441,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Controller-ProjController.html#method_about"
         },                {
+            "fqsen": "\\App\\Controller\\ProjController\u003A\u003Adatabase\u0028\u0029",
+            "name": "database",
+            "summary": "",
+            "url": "classes/App-Controller-ProjController.html#method_database"
+        },                {
             "fqsen": "\\App\\DataFixtures\\AppFixtures",
             "name": "AppFixtures",
             "summary": "",
@@ -485,6 +540,171 @@ Search.appendIndex(
             "name": "img",
             "summary": "",
             "url": "classes/App-Entity-Book.html#property_img"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult",
+            "name": "GameResult",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003AgetId\u0028\u0029",
+            "name": "getId",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#method_getId"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003AgetBet\u0028\u0029",
+            "name": "getBet",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#method_getBet"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003AsetBet\u0028\u0029",
+            "name": "setBet",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#method_setBet"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003AgetPlayerValue\u0028\u0029",
+            "name": "getPlayerValue",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#method_getPlayerValue"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003AsetPlayerValue\u0028\u0029",
+            "name": "setPlayerValue",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#method_setPlayerValue"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003AgetBankValue\u0028\u0029",
+            "name": "getBankValue",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#method_getBankValue"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003AsetBankValue\u0028\u0029",
+            "name": "setBankValue",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#method_setBankValue"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003AgetOutcome\u0028\u0029",
+            "name": "getOutcome",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#method_getOutcome"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003AsetOutcome\u0028\u0029",
+            "name": "setOutcome",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#method_setOutcome"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003AgetCreatedAt\u0028\u0029",
+            "name": "getCreatedAt",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#method_getCreatedAt"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003AsetCreatedAt\u0028\u0029",
+            "name": "setCreatedAt",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#method_setCreatedAt"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003AgetPlayer\u0028\u0029",
+            "name": "getPlayer",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#method_getPlayer"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003AsetPlayer\u0028\u0029",
+            "name": "setPlayer",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#method_setPlayer"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003A\u0024id",
+            "name": "id",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#property_id"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003A\u0024bet",
+            "name": "bet",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#property_bet"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003A\u0024playerValue",
+            "name": "playerValue",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#property_playerValue"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003A\u0024bankValue",
+            "name": "bankValue",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#property_bankValue"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003A\u0024outcome",
+            "name": "outcome",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#property_outcome"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003A\u0024createdAt",
+            "name": "createdAt",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#property_createdAt"
+        },                {
+            "fqsen": "\\App\\Entity\\GameResult\u003A\u003A\u0024player",
+            "name": "player",
+            "summary": "",
+            "url": "classes/App-Entity-GameResult.html#property_player"
+        },                {
+            "fqsen": "\\App\\Entity\\Player",
+            "name": "Player",
+            "summary": "",
+            "url": "classes/App-Entity-Player.html"
+        },                {
+            "fqsen": "\\App\\Entity\\Player\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/App-Entity-Player.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Entity\\Player\u003A\u003AgetId\u0028\u0029",
+            "name": "getId",
+            "summary": "",
+            "url": "classes/App-Entity-Player.html#method_getId"
+        },                {
+            "fqsen": "\\App\\Entity\\Player\u003A\u003AgetName\u0028\u0029",
+            "name": "getName",
+            "summary": "",
+            "url": "classes/App-Entity-Player.html#method_getName"
+        },                {
+            "fqsen": "\\App\\Entity\\Player\u003A\u003AsetName\u0028\u0029",
+            "name": "setName",
+            "summary": "",
+            "url": "classes/App-Entity-Player.html#method_setName"
+        },                {
+            "fqsen": "\\App\\Entity\\Player\u003A\u003AgetGameResults\u0028\u0029",
+            "name": "getGameResults",
+            "summary": "",
+            "url": "classes/App-Entity-Player.html#method_getGameResults"
+        },                {
+            "fqsen": "\\App\\Entity\\Player\u003A\u003AaddGameResult\u0028\u0029",
+            "name": "addGameResult",
+            "summary": "",
+            "url": "classes/App-Entity-Player.html#method_addGameResult"
+        },                {
+            "fqsen": "\\App\\Entity\\Player\u003A\u003AremoveGameResult\u0028\u0029",
+            "name": "removeGameResult",
+            "summary": "",
+            "url": "classes/App-Entity-Player.html#method_removeGameResult"
+        },                {
+            "fqsen": "\\App\\Entity\\Player\u003A\u003A\u0024id",
+            "name": "id",
+            "summary": "",
+            "url": "classes/App-Entity-Player.html#property_id"
+        },                {
+            "fqsen": "\\App\\Entity\\Player\u003A\u003A\u0024name",
+            "name": "name",
+            "summary": "",
+            "url": "classes/App-Entity-Player.html#property_name"
+        },                {
+            "fqsen": "\\App\\Entity\\Player\u003A\u003A\u0024gameResults",
+            "name": "gameResults",
+            "summary": "",
+            "url": "classes/App-Entity-Player.html#property_gameResults"
         },                {
             "fqsen": "\\App\\Form\\BookType",
             "name": "BookType",
@@ -805,6 +1025,31 @@ Search.appendIndex(
             "name": "__construct",
             "summary": "",
             "url": "classes/App-Repository-BookRepository.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Repository\\GameResultRepository",
+            "name": "GameResultRepository",
+            "summary": "",
+            "url": "classes/App-Repository-GameResultRepository.html"
+        },                {
+            "fqsen": "\\App\\Repository\\GameResultRepository\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/App-Repository-GameResultRepository.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Repository\\PlayerRepository",
+            "name": "PlayerRepository",
+            "summary": "",
+            "url": "classes/App-Repository-PlayerRepository.html"
+        },                {
+            "fqsen": "\\App\\Repository\\PlayerRepository\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/App-Repository-PlayerRepository.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Repository\\PlayerRepository\u003A\u003AfindOrCreate\u0028\u0029",
+            "name": "findOrCreate",
+            "summary": "Find\u0020a\u0020player\u0020by\u0020name,\u0020or\u0020create\u0020and\u0020persist\u0020a\u0020new\u0020one.",
+            "url": "classes/App-Repository-PlayerRepository.html#method_findOrCreate"
         },                {
             "fqsen": "\\",
             "name": "\\",
