@@ -1,0 +1,49 @@
+{% extends 'proj/base.html.twig' %}
+
+{% block title %}Databas - Black Jack{% endblock %}
+
+{% block body %}
+<section class="bj-db">
+    <h1>Databas</h1>
+    
+    <h2>ER-diagram</h2>
+    <img src="{{ asset('img/er-diagram.png') }}" alt="ER-diagram över player och game_result" class="bj-db-er">
+    <h2>Tabeller</h2>
+    <p><strong><code>player</code></strong><br>sparar varje spelare som spelat, med ett namn.</p>
+    <p><strong><code>game_result</code></strong><br>sparar resultatet av varje spelad hand: insats,
+    spelarens och bankens poäng, utfallet och när handen spelades.</p>
+
+    <h2>Relation</h2>
+    <p>Tabellerna har en <strong>en-till-många-relation</strong>: en spelare kan ha flera resultat, men varje resultat tillhör bara en specifik spelare.</p>
+    <p>I Doctrine är detta kopplat med en <code>ManyToOne</code> från <code>GameResult</code> till <code>Player</code>, och motsvarande <code>OneToMany</code> på <code>Player</code>-sidan. Kolumnen är satt till <code>nullable: false</code> eftersom ett resultat inte kan existera utan en spelare.</p>
+    <p>I själva databasen skapas en främmande nyckel i kolumnen <code>player_id</code> i tabellen <code>game_result</code>, som pekar på <code>player.id</code>.</p>
+
+    <h2>Databasmotor</h2>
+    <p>Projektet använder SQLite. Databasfilen ligger lokalt i <code>var/</code> och
+    kräver ingen separat databasserver, vilket gör den enkel att versionshantera,
+    nollställa och köra på studentservern.</p>
+
+    <h2>Enhetstester mot databasen</h2>
+    <p>Entiteterna <code>Player</code> och <code>GameResult</code> testas med PHPUnit:
+    deras gettrar, settrar och relationen mellan dem (att ett resultat kan kopplas
+    till en spelare och hämtas tillbaka via spelarens resultatsamling). Eftersom
+    testerna verifierar objektens beteende utan att kräva en live-databasanslutning
+    kör de grönt på Scrutinizer utan särskild databaskonfiguration.</p>
+
+    <h2>ORM jämfört med SQL</h2>
+    <p>Att jobba med ett ORM som Doctrine skiljer sig en hel del från hur vi jobbade med SQL i databaskursen, 
+    även om grundsyftet är detsamma. Båda sätten handlar i slutändan om att hämta, spara och strukturera data i en databas.
+    Den största likheten är att databasens underliggande struktur med tabeller, primärnycklar och relationer 
+    fortfarande måste förstås i båda fallen.</p>
+    <p>Den stora skillnaden ligger i hur vi interagerar med denna data från koden. 
+    I databaskursen skrev vi explicita SQL-frågor direkt i koden och hanterade resultatet som arrayer. 
+    Med ett ORM slipper vi skriva SQL manuellt för vanliga operationer, och datan översätts istället automatiskt 
+    till färdiga objekt.</p>
+    <p>En stor fördel med ORM är att utvecklingen går snabbare och koden blir renare och mer typsäker. 
+    Det blir också mycket enklare att byta databasleverantör eftersom ORM-lagret döljer de flesta dialektskillnader i SQL. 
+    Nackdelen är att man tappar en del av kontrollen över exakt vilka frågor som skickas till databasen. 
+    För komplexa frågor med många tabellkopplingar kan ett ORM generera ineffektiv SQL som drar ner prestandan. 
+    Sammanfattningsvis ger rå SQL maximal kontroll och prestanda, medan ett ORM ger högre produktivitet 
+    och en trevligare utvecklarupplevelse.</p>
+</section>
+{% endblock %}
