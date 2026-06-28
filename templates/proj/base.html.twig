@@ -12,10 +12,10 @@
         <div class="proj-header__inner">
             <a href="{{ path('proj_landing') }}" class="proj-logo">&spades; Black Jack</a>
             <nav class="proj-nav">
-                <a href="{{ path('proj_landing') }}" class="proj-nav__link">Hem</a>
-                <a href="{{ path('proj_about') }}" class="proj-nav__link">Om</a>
-                <a href="{{ path('proj_game') }}" class="proj-nav__link">Spela</a>
-                {# <a href="{{ path('proj_api') }}" class="proj-nav__link">API</a> #}
+                <a href="{{ path('proj_landing') }}" class="proj-nav__link {{ app.request.get('_route') == 'proj_landing' ? 'proj-nav__link--active' : '' }}">Hem</a>
+                <a href="{{ path('proj_about') }}" class="proj-nav__link {{ app.request.get('_route') starts with 'proj_about' or app.request.get('_route') == 'proj_database' ? 'proj-nav__link--active' : '' }}">Om</a>
+                <a href="{{ path('proj_game') }}" class="proj-nav__link {{ app.request.get('_route') starts with 'proj_game' ? 'proj-nav__link--active' : '' }}">Spela</a>
+                <a href="{{ path('proj_api') }}" class="proj-nav__link {{ app.request.get('_route') starts with 'proj_api' ? 'proj-nav__link--active' : '' }}">API</a>
             </nav>
         </div>
     </header>
