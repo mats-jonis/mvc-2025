@@ -1,11 +1,8 @@
 # mvc-2025
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mats-jonis/mvc-2025/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/mats-jonis/mvc-2025/?branch=main)
-
 [![Build Status](https://scrutinizer-ci.com/g/mats-jonis/mvc-2025/badges/build.png?b=main)](https://scrutinizer-ci.com/g/mats-jonis/mvc-2025/build-status/main)
-
 [![Code Coverage](https://scrutinizer-ci.com/g/mats-jonis/mvc-2025/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/mats-jonis/mvc-2025/?branch=main)
-
 ![symfony-twig-template](https://github.com/user-attachments/assets/f16f1ac6-707c-4ad3-b732-61b3a318efb9)
 
 A web application using Twig for templating and Webpack for asset management. This project serves as a base structure for future development with a MVC architecture.
